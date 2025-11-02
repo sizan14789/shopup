@@ -1,32 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 @import "tailwindcss";
 
+/* Light Theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --text: #000000;
+  --subtext: #0000007e;
+  --primary: #16476A;
+  --secondary: #132440;
+  --highlight: #BF092F;
+  --border: #cfcece80;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
+/* Dark Theme */ 
+.dark {
+  --bg: #12171a;
+  --text: #ffffff;
+  --subtext: #ffffff80;
+  --primary: #0F4C75;
+  --secondary: #3282B8;
+  --highlight: #BBE1FA;
 }
 
 /* fonts */
 .font-mon {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
+  font-family: "Robot Slab", sans-serif;
 }
+
+/* pre styled components  */
+.shell{
+  @apply w-svw;
+}
+
+.core{
+  @apply max-w-400 mx-auto px-4;
+}
+
