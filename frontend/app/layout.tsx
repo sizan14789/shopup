@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/ui/header/Header";
 import Footer from "@/ui/footer/Footer";
+import { cookies } from 'next/headers'
 
 const poppins = Poppins({
   weight: [ '100', '200', '300', '400', '500', '600', '700', '800', '900' ],
@@ -14,17 +15,21 @@ export const metadata: Metadata = {
   description: "A Marketplace app",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const cookieStore = await cookies();
+  const theme = cookieStore.get('theme')?.value || "light";
+
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} antialiased flex flex-col min-h-svh text-sm md:text-[1rem] bg-(--bg) text-(--text)`}
+        className={`${poppins.className} antialiased flex flex-col min-h-svh text-sm md:text-[1rem] bg-(--bg) text-(--text) duration-200 ${theme.toString()==="dark" ? "dark" : ""}`}
       >
-        <Header />
+        <Header theme={theme.toString()} />
         {children}
         <Footer />
       </body>

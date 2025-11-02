@@ -3,13 +3,13 @@
 import { create } from "zustand";
 
 interface nav {
-  navOpen: Boolean;
-  setNavOpen: (state: Boolean) => void;
+  navOpen: boolean;
+  setNavOpen: (state: boolean) => void;
 }
 
 const useNavStore = create<nav>((set) => ({
   navOpen: false,
-  setNavOpen: (state: Boolean) => set(() => ({ navOpen: state})),
+  setNavOpen: (state: boolean) => set(() => ({ navOpen: state})),
 }));
 
 export default useNavStore;

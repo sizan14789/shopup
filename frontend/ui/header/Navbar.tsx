@@ -3,15 +3,33 @@
 import Link from "next/link";
 import useNavStore from "@/context/Nav";
 import { MoonIcon, SunDimIcon, XIcon } from "@phosphor-icons/react";
+import { useState } from "react";
+import { setCookie } from "cookies-next";
 
-export default function Navbar() {
+export default function Navbar({ theme }: { theme: string }) {
   const { navOpen, setNavOpen } = useNavStore();
+  const [localTheme, setTheme] = useState<string>(theme);
+
+  const toggleTheme = () => {
+    if (localTheme !== "dark") {
+      setTheme("dark");
+      document.body.classList.add("dark");
+      setCookie('theme', "dark");
+    } else {
+      setTheme("light");
+      document.body.classList.remove("dark");
+      setCookie('theme', "light");
+    }
+  };
 
   return (
     <div className="flex gap-8 items-center">
-      <button className="cursor-pointer">
-        <MoonIcon size={20} weight="light" />
-        <SunDimIcon size={23} weight="light" />
+      <button className="cursor-pointer" onClick={toggleTheme}>
+        {localTheme !== "dark" ? (
+          <MoonIcon size={20} weight="light" />
+        ) : (
+          <SunDimIcon size={23} weight="light" />
+        )}
       </button>
       <Link href="#">Search</Link>
 
