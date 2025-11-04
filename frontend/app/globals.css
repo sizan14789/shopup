@@ -4,7 +4,7 @@
 /* Light Theme */
 :root {
   --bg: #ffffff;
-  --text: #000000;
+  --text: #000000e3;
   --subtext: #0000007e;
   --primary: #F44336;
   --secondary: #E91E63;
@@ -16,7 +16,7 @@
 /* Dark Theme */ 
 .dark {
   --bg: #0a0a0a;
-  --text: #c9c9c9;
+  --text: #ffffffdc;
   --subtext: #ffffff80;
   --primary: #673AB7;
   --secondary: #9C27B0;
@@ -45,4 +45,8 @@
 
 .button-secondary {
   @apply text-sm rounded-md flex font-medium overflow-hidden duration-200 border border-(--border-button) hover:bg-(--primary) hover:text-white hover:border-(--primary) active:scale-90 cursor-pointer;
+}
+
+.dimmed-text {
+  @apply text-sm text-(--subtext);
 }

@@ -1,7 +1,7 @@
 interface ProductCardType {
   id: number,
-  name: string,
-  image: string,
+  product_name: string,
+  product_image: string,
   rating: number,
   offer_price: number
 }
@@ -11,6 +11,6 @@ interface soloProductType extends ProductCardType {
   category: string,
   brand: string,
   price: number,
-  sellerid: number,
+  seller_name: string,
   created_at: string
 }

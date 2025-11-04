@@ -31,7 +31,7 @@ export default function Navbar({ theme }: { theme: string }) {
   };
 
   return (
-    <div className="flex gap-4 md:gap-8 grow items-center justify-end">
+    <div className="flex gap-4 md:gap-6 grow items-center justify-end">
       
       <NavbarSearchDesktop />
 
@@ -69,12 +69,14 @@ export default function Navbar({ theme }: { theme: string }) {
           <NavbarSearchMobile />
           <Link
             href="/shop"
+            onClick={() => setNavOpen(false)}
             className="border-b border-b-(--border) w-full min-h-20 flex justify-center items-center duration-200 hover:brightness-90 hover:text-(--primary) active:scale-90 bg-(--bg) hover:font-medium "
           >
             Shop
           </Link>
           <Link
             href="/orders"
+            onClick={() => setNavOpen(false)}
             className="border-b border-b-(--border) w-full min-h-20 flex justify-center items-center duration-200 hover:brightness-90 hover:text-(--primary) active:scale-90 bg-(--bg) hover:font-medium "
           >
             My Orders
@@ -89,7 +91,7 @@ export default function Navbar({ theme }: { theme: string }) {
       </nav>
 
       {/* desktop */}
-      <nav className="hidden lg:flex items-center gap-8 justify-center">
+      <nav className="hidden lg:flex items-center gap-6 justify-center">
         <Link className="hover:text-(--primary) duration-200 " href="/shop">Shop</Link>
         <Link className="hover:text-(--primary) duration-200 " href="/orders">My Orders</Link>
       </nav>
