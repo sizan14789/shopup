@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 interface userStoreType {
-  hasUser: boolean;
+  userState: string;
   user: {
     username?: string;
     email?: string;
@@ -11,19 +11,10 @@ interface userStoreType {
 }
 
 export const useUserStore = create<userStoreType>((set) => ({
-  hasUser: false,
+  userState: "loading",
   user: {},
-  setUser: (userInfo) =>
-    set(() => {
-      if (Object.keys(userInfo).length != 0) {
-        return {
-          user: userInfo,
-          hasUser: true,
-        };
-      }
-      return {
-        user: {},
-        hasUser: false,
-      };
-    }),
+  setUser: (userInfo) => set(() => ({
+    user: userInfo,
+    userState: Object.keys(userInfo).length===0? 'loggedOut' : 'loggedIn'
+  }))
 }));

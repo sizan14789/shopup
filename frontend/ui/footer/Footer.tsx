@@ -50,8 +50,8 @@ export default function Footer() {
 
           <div className="flex flex-col gap-1">
             <h2 className="text-xl md:text-2xl">Contacts</h2>
-            <p className="text-(--subtext) text-sm " >01925790529</p>
-            <a className="text-(--subtext) text-sm hover:text-(--secondary) duration-200"  href="mailto:sizanalt@gmail.com">sizanalt@gmail.com</a>
+            <p className="text-(--subtext) text-xs " >01925790529</p>
+            <a className="text-(--subtext) text-xs hover:text-(--secondary) duration-200"  href="mailto:sizanalt@gmail.com">sizanalt@gmail.com</a>
           </div>
         </div>
 

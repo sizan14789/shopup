@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
-interface nav {
-  cart: CartItemType [];
-  setCart: (state: CartItemType []) => void;
+export interface CartItemStoreType {
+  cart: Record<string, number>;
+  setCart: (state: Record<string, number>) => void;
 }
 
-const useCartStore = create<nav>((set) => ({
-  cart: [],
-  setCart: (state: CartItemType []) => set(() => ({ cart: state})),
+const useCartStore = create<CartItemStoreType>((set) => ({
+  cart: {},
+  setCart: (state: Record<string, number>) => set(() => ({ cart: state})),
 }));
 
 export default useCartStore;

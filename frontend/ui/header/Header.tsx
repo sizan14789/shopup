@@ -1,11 +1,9 @@
 import Link from "next/link";
 import Navbar from "./Navbar";
 import NavButton from "./NavButton";
-import { getUser } from "@/lib/getuser";
 import { userType } from "@/types/UserType";
 
-export default async function Header({ theme }: { theme: string }) {
-  const user:userType = await getUser();
+export default async function Header({ theme, user }: { theme: string, user: userType }) {
   console.log(user)
 
   return (

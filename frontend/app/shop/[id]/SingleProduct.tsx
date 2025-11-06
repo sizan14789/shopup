@@ -1,4 +1,6 @@
+import { soloProductType } from "@/types/ProductsTypes";
 import Image from "next/image";
+import CartAndBuy from "./CartAndBuy";
 
 export default function SingleProduct({ data }: { data: soloProductType }) {
   const {
@@ -41,14 +43,8 @@ export default function SingleProduct({ data }: { data: soloProductType }) {
         <p className="dimmed-text mb-4">Category: {category}</p>
         <button className="self-start cursor-pointer">{seller_name}</button>
 
-        <div className="flex gap-4 my-6 ">
-          <button className="button-secondary h-12 w-44 justify-center items-center">
-            add to cart
-          </button>
-          <button className="button-primary justify-center items-center h-12 w-44 ">
-            Buy Now
-          </button>
-        </div>
+        <CartAndBuy id={id} />
+
       </div>
     </div>
   );

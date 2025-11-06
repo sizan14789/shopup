@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function NavbarAuth({ user }: { user: userType }) {
   return (
     <div className="flex gap-2 md:gap-4 items-center ">
-      {Object.keys(user).length !== 0 ? (
+      {user ? (
         <button className="flex gap-2 items-center">
           <UserCircleIcon size={22} weight="thin" />
           <p>{user?.username}</p>

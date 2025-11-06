@@ -3,10 +3,9 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/ui/header/Header";
 import Footer from "@/ui/footer/Footer";
-import { cookies } from 'next/headers'
-import UserSetter from "@/lib/UserSetter";
+import UserSetter from "@/lib/InitialSetter";
 import { Toaster } from "react-hot-toast";
-import { getUser } from "@/lib/getuser";
+import { getTheme, getUser } from "@/lib/initialLoadLib";
 
 const poppins = Poppins({
   weight: [ '100', '200', '300', '400', '500', '600', '700', '800', '900' ],
@@ -24,17 +23,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const cookieStore = await cookies();
-  const theme = cookieStore.get('theme')?.value || "light";
+  const theme = await getTheme();
+  const userInfo = await getUser();
 
   return (
     <html lang="en">
       <body
         className={`${poppins.className} antialiased flex flex-col min-h-svh text-sm md:text-[1rem] bg-(--bg) text-(--text) duration-200 ${theme.toString()==="dark" ? "dark" : ""}`}
       >
-        <UserSetter />
+        <UserSetter userInfo={userInfo} />
         <Toaster />
-        <Header theme={theme.toString()} />
+        <Header theme={theme.toString()} user={userInfo} />
         {children}
         <Footer />
       </body>
