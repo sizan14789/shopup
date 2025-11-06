@@ -39,8 +39,8 @@ export default function LoginForm() {
       if (res.status === 200) {
         toast.success("Logged in");
         setUser(data);
-        router.back();
         router.refresh();
+        setTimeout(()=> router.push('/'), 100)
       } else {
         toast.error(data.message);
       }

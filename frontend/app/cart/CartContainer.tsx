@@ -1,37 +1,38 @@
 "use client";
 
-import ItemCard from "./ItemCard";
-import { useUserStore } from "@/context/UserStore";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import ItemCard from "./ItemCard";
+import { useState } from "react";
 
-export default function CartContainer() {
-  const { userState } = useUserStore();
-  const [cartDetails, setCartDetails] = useState<CartItemType[]>([]);
+export default function CartContainer({
+  cartItemDetailsInfo,
+}: {
+  cartItemDetailsInfo: CartItemType[];
+}) {
+  const [cartDetails, setCartDetails] = useState<CartItemType[]>(cartItemDetailsInfo);
+  const [ placeOrderModal, setPlaceOrderModal ] = useState<boolean>(false)
 
-  useEffect(() => {
-    const getCartDetails = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cartDetails`,
-          {
-            method: "get",
-            credentials: "include",
-          }
-        );
-        if (res.status === 200) {
-          const data = await res.json();
-          setCartDetails(data);
-          // setState('done')
-        }
-      } catch (error) {
-        console.log(error);
-        // setState('error')
-      }
-    };
-    if(userState==='loggedIn')
-      getCartDetails();
-  }, [userState]);
+  // useEffect(() => {
+  //   if (userState !== "loggedIn") return;
+  //   const getCartDetails = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cartDetails`,
+  //         {
+  //           method: "get",
+  //           credentials: "include",
+  //         }
+  //       );
+  //       if (res.status === 200) {
+  //         const data = await res.json();
+  //         setCartDetails(data);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getCartDetails();
+  // }, [userState]);
 
   // delete from cart
   const handleDeleteFromCartDetails = (id: number) => {
@@ -66,33 +67,22 @@ export default function CartContainer() {
     return total;
   };
 
-  if (userState==='loggedOut'){
-    return(
-      <div className="w-full flex flex-col">
-        <div className="grow flex justify-center my-6">
-          <h2 className="text-(--subtext) text-sm">
-            You are not logged in.{" "}
-            <Link href="/login" className="text-(--highlight) ">
-              Log in
-            </Link>
-          </h2>
-        </div>
-      </div>
-    )
-  }
-
-  if (userState === "loading") {
+  if (cartDetails.length === 0) {
     return (
-      <div className="w-full flex flex-col">
-        <div className="grow flex justify-center my-6">
-          <h2 className="text-(--subtext) text-sm">Loading...</h2>
-        </div>
+      <div className="grow flex justify-center my-6">
+        <h2 className="text-(--subtext) text-sm">
+          Empty Cart. Visit the shop{" "}
+          <Link href="/shop" className="text-(--highlight) ">
+            shop
+          </Link>{" "}
+          to add items
+        </h2>
       </div>
     );
   }
 
   return (
-    <div className="w-full flex flex-col">
+    <>
       <div className="p-2 grid grid-cols-3 lg:grid-cols-5 mb-4 font-semibold ">
         <h2 className="lg:col-span-2 flex justify-center lg:justify-start">
           Product
@@ -120,9 +110,18 @@ export default function CartContainer() {
         </p>
       </div>
 
-      <button className="button-primary self-center h-12 w-40 flex justify-center items-center mt-2">
+      <button className="button-primary self-center h-12 w-40 flex justify-center items-center mt-2"
+      onClick={()=> setPlaceOrderModal(true)}
+      >
         Place Order
       </button>
-    </div>
+      
+      {/* modal for order placing */}
+      <div className={`${placeOrderModal? "flex" : 'hidden' } h-full w-svw fixed top-0 left-0 justify-center items-center bg-gray-300/90 z-100 `} >
+        <div className="">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, a perspiciatis consequuntur non quis sapiente blanditiis eos aliquam totam earum expedita, itaque, deleniti voluptatibus ad. Deleniti animi nisi quae dolor?
+        </div>
+      </div>
+    </>
   );
 }

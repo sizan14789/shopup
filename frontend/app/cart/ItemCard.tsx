@@ -3,6 +3,7 @@ import { updateCart } from "@/lib/cartLib";
 import { TrashIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import toast from "react-hot-toast";
 
 type ParamsType = {
@@ -11,12 +12,20 @@ type ParamsType = {
   handleDeleteFromCartDetails: (id: number) => void;
 };
 
-export default function ItemCard({
+const ItemCard = ({
   data,
   handleQuantityChange,
   handleDeleteFromCartDetails,
-}: ParamsType) {
+}: ParamsType) => {
   const { cart, setCart } = useCartStore();
+  const {
+    id,
+    product_name,
+    offer_price,
+    product_image,
+    seller_name,
+    quantity,
+  } = data;
 
   //increment or decrement
   const changeQuantity = async (amount: number) => {
@@ -41,13 +50,13 @@ export default function ItemCard({
 
       if (changedAnything) {
         try {
-          const res = await updateCart(updatedCart)
-          if (!(res===201)) {
-            toast.error("Quantity was not changed. Error unknown")
-          } 
+          const res = await updateCart(updatedCart);
+          if (!(res === 201)) {
+            toast.error("Quantity was not changed. Error unknown");
+          }
         } catch (error) {
           console.log(error);
-          toast.error("Quantity was not changed. Error unknown")
+          toast.error("Quantity was not changed. Error unknown");
         }
       }
     }
@@ -59,14 +68,14 @@ export default function ItemCard({
     const updatedCart = { ...cart };
     delete updatedCart[id.toString()];
 
-    setCart(updatedCart)
+    setCart(updatedCart);
 
     // updating state and local details
     handleDeleteFromCartDetails(id);
 
     try {
-      const res = await updateCart(updatedCart)
-      if (!(res===201)) {
+      const res = await updateCart(updatedCart);
+      if (!(res === 201)) {
         console.log("error at item card");
       } else {
         toast.success("Item deleted");
@@ -76,31 +85,22 @@ export default function ItemCard({
     }
   };
 
-  const {
-    id,
-    product_name,
-    offer_price,
-    product_image,
-    seller_name,
-    quantity,
-  } = data;
-
   return (
-    <div className="grid rounded-b-lg grid-cols-3 lg:grid-cols-5 py-4 border-b-(--border) border-b bg-(--bg) hover:brightness-95  duration-200">
+    <div className="grid rounded-b-lg grid-cols-3 lg:grid-cols-5 py-4 border-b-(--border) border-b bg-(--bg) hover:brightness-95 duration-200">
       <Link
         href={"/shop/" + id}
         className=" flex lg:col-span-2 items-center lg:items-start gap-4 flex-col lg:flex-row px-2  cursor-pointer"
       >
         <Image
-          height={200}
-          width={200}
+          height={100}
+          width={100}
           alt={product_name + " image in cart"}
           src={product_image}
           className="object-cover rounded-lg max-w-20 lg:max-w-28 "
         />
-        <div className="flex gap-1 md:gap-2 flex-col">
-          <h2 className="md:text-xl">{product_name}</h2>
-          <h2 className="text-xs md:text-sm">{seller_name}</h2>
+        <div className="flex gap-1 md:gap-2 flex-col  w-full">
+          <h2 className=" text-center lg:text-start md:text-xl">{product_name}</h2>
+          <h2 className=" text-center lg:text-start text-xs md:text-sm">{seller_name}</h2>
         </div>
       </Link>
 
@@ -124,7 +124,7 @@ export default function ItemCard({
       </div>
 
       <div className="text-sm flex flex-col lg:flex-row justify-center lg:justify-start items-center ">
-        <p className="self-center justify-self-center mt-12 lg:mt-0">
+        <p className="self-center justify-self-center mt-10 lg:mt-0">
           ${offer_price}x{quantity}=
           <span className="font-semibold">${offer_price * quantity}</span>
         </p>
@@ -132,9 +132,11 @@ export default function ItemCard({
           className="text-(--highlight) button-rounded h-10 w-10 lg:ml-auto"
           onClick={deleteItem}
         >
-          <TrashIcon size={24} weight="thin" />
+          <TrashIcon size={24} weight="light" />
         </button>
       </div>
     </div>
   );
-}
+};
+
+export default ItemCard;
