@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import SingleProduct from "./SingleProduct";
+import { soloProductType } from "@/types/ProductsTypes";
 
 const getProductData = async (id: string) => {
   try {
@@ -18,8 +19,7 @@ const getProductData = async (id: string) => {
 };
 
 export default async function Shop({ params }: { params: { id: string } }) {
-  const id: string = (await params)?.id;
-  console.log(id);
+  const id: string = (await params)?.id; 
 
   const productData: soloProductType = await getProductData(id);
 

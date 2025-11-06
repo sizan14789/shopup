@@ -14,6 +14,7 @@ import NavbarSearchMobile from "./NavbarSearchMobile";
 import NavbarAuth from "./NavbarAuth";
 import NavbarSearchDesktop from "./NavbarSearchDesktop";
 import { userType } from "@/types/UserType";
+import CartComponentHeader from "./CartComponentHeader";
 
 export default function Navbar({ theme, user }: { theme: string, user: userType }) {
   const { navOpen, setNavOpen } = useNavStore();
@@ -36,9 +37,7 @@ export default function Navbar({ theme, user }: { theme: string, user: userType 
       
       <NavbarSearchDesktop />
 
-      <Link href="/cart" className="active:scale-90">
-        <ShoppingCartSimpleIcon size={20} weight="light" />
-      </Link>
+      <CartComponentHeader />
 
       <button
         className="cursor-pointer duration-200 active:scale-90"
@@ -62,7 +61,7 @@ export default function Navbar({ theme, user }: { theme: string, user: userType 
             onClick={() => setNavOpen(false)}
             className="w-full min-h-20 flex justify-center items-center"
           >
-            <p className="h-16 w-16 rounded-full bg-(--) flex justify-center items-center cursor-pointer hover:text-white hover:bg-(--primary) duration-200 active:scale-90">
+            <p className="h-16 w-16 button-rounded">
               <XIcon size={36} weight="light" />
             </p>
           </button>

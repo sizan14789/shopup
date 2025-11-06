@@ -4,6 +4,7 @@ import cors from 'cors'
 import { globalErrorHandler, notFound } from "./middlewares/Error.js";
 import loginRouter from './routes/auth.js'
 import productsRouter from './routes/products.js'
+import cartsRouter from './routes/carts.js'
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser())
 // routes
 app.use(loginRouter);
 app.use(productsRouter)
+app.use(cartsRouter)
 
 // Not found
 app.use(notFound)

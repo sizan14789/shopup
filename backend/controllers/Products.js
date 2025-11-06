@@ -12,8 +12,7 @@ export const getProduct = async (req, res, next) => {
       `select p.id, p.name as product_name, p.image as product_image, description, rating, p.price, p.offer_price, p.category, p.brand, u.username as seller_name from product as p join "user" as u on p.sellerid=u.id where p.id=$1`,
       [id]
     )
-  ).rows[0];
-  console.log(data);
+  ).rows[0]; 
   return res.status(200).json(data);
 };
 

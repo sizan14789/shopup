@@ -4,6 +4,7 @@ import { useShopProductsStore } from "@/context/ShopProductsStore";
 import ProductCard from "./ProductCard";
 import { useEffect, useState } from "react";
 import { useGlobalSearchStore } from "@/context/GlobalSearch";
+import { ProductCardType } from "@/types/ProductsTypes";
 
 export default function ProductsSection({
   searchString,
@@ -38,8 +39,7 @@ export default function ProductsSection({
     };
 
     const getProductsBySearch = async (param: string) => {
-      try {
-        console.log(param);
+      try { 
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?search=${param}`
         );

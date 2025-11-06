@@ -16,8 +16,7 @@ export default function FilterBox() {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?search=${search}`
       );
-      const data = await res.json();
-      console.log(data)
+      const data = await res.json(); 
       setProducts(data);
     } catch (error) {
       console.log(error);
