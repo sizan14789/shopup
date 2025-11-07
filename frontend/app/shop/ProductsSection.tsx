@@ -29,7 +29,7 @@ export default function ProductsSection({
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`
-        );
+        ); 
         const data = await res.json();
         setProducts(data);
         setState("success");
