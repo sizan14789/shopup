@@ -37,7 +37,7 @@ export default function ProductCard({data}: {data:ProductCardType }) {
       </figure>
 
       <div className="flex flex-col mb-2 items-center gap-2">
-        <h2 className="md:text-xl text-center">{product_name}</h2>
+        <h2 className="text-center">{product_name}</h2>
         <p className="text-(--subtext) text-xs ">Rating: {rating}/5</p>
         <p className="">${offer_price}</p>
       </div>
