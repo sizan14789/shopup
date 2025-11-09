@@ -1,6 +1,4 @@
-add cancel for orders page and single order page both...verify status in the backend must
-
-make checkout display dynamic so that items can be edited right there
+next -> make checkout display dynamic so that items can be edited right there
 
 update the slider to point to 3 different pages
 1st for top selling item
@@ -9,6 +7,7 @@ update the slider to point to 3 different pages
 
 update cart Details if it exists from single product page so that adding and going back with mouse results in updated info
 
+Archived orders page or something like history
 
 // extreme advanced
 Merge existing orders based on pending orders

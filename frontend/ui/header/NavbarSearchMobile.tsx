@@ -31,7 +31,7 @@ export default function NavbarSearchMobile() {
       <div
         className={`${
           searchBar ? "flex" : "hidden"
-        } z-100 h-svh w-svw bg-gray-500/90 fixed top-0 left-0 translate-x-full justify-center pt-20`}
+        } z-100 h-svh w-svw bg-gray-600/90 fixed top-0 left-0 translate-x-full justify-center pt-20`}
         onClick={() => setSearchBar(false)}
       >
         <form

@@ -13,10 +13,20 @@ export default function OrdersContainer({
     useState<OrderType[]>(ordersDetailsInfo);
 
   // cancel order
-  const handleCancelFromOrders = (id: number) => {
-    const updatedOrdersDetails = ordersDetails.filter((each) => {
-      return each.id !== id;
+  const handleCancelStateUpdate = (id: number) => {
+    const updatedOrdersDetails = ordersDetails.map((each) => {
+      const updated = { ...each };
+      if (updated.id === id) {
+        updated.order_status = "Cancelled";
+      }
+      return updated;
     });
+    setOrdersDetails(updatedOrdersDetails);
+  };
+
+  // Archive order
+  const handleArchiveStateUpdate = (id: number) => {
+    const updatedOrdersDetails = ordersDetails.filter((each) => each.id !== id);
     setOrdersDetails(updatedOrdersDetails);
   };
 
@@ -43,7 +53,14 @@ export default function OrdersContainer({
       </div>
 
       {ordersDetails.map((each: OrderType) => {
-        return <OrdersItemCard data={each} key={each.id} />;
+        return (
+          <OrdersItemCard
+            data={each}
+            key={each.id}
+            handleCancelStateUpdate={handleCancelStateUpdate}
+            handleArchiveStateUpdate={handleArchiveStateUpdate}
+          />
+        );
       })}
     </>
   );

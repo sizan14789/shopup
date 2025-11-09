@@ -36,8 +36,6 @@ export default async function OrderPage({
 
   const orderData = await getOrderData(id, sessionid);
 
-  console.log(orderData);
-
   return (
     <div className="shell mb-20 grow flex mt-20">
       <div className="core grow flex flex-col">

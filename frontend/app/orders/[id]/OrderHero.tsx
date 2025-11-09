@@ -1,9 +1,15 @@
 "use client";
 
+import { ArchiveIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { format, formatDistance } from 'date-fns'
 
 export default function OrderHero({ data }: { data: SingleOrderType }) {
+  const [order, setOrder] = useState<SingleOrderType>(data);
   const {
     id,
     product_name,
@@ -19,7 +25,63 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
     subtotal,
     order_status,
     created_at,
-  } = data;
+  } = order;
+  const router = useRouter();
+
+  const formattedDate = format(new Date(created_at), "dd-MM-yyyy")
+  const formattedDistance = formatDistance(new Date(created_at), new Date(), { addSuffix: true })
+  console.log(formattedDistance)
+
+  // cancel order
+  const handleCancel = async () => {
+    const toastid = toast.loading("Cancelling");
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/cancel/${id}`,
+        {
+          method: "post",
+          credentials: "include",
+        }
+      );
+
+      if (res.status === 201) {
+        setOrder((prev) => ({ ...prev, order_status: "Cancelled" }));
+        toast.success("Order Cancelled", { id: toastid });
+      } else {
+        const data = await res.json();
+        toast.error(data.message, { id: toastid });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Cancel Failed", { id: toastid });
+    }
+  };
+
+  // archive Order
+  const handleArchive = async () => {
+    const toastid = toast.loading("Archiving");
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/archive/${id}`,
+        {
+          method: "post",
+          credentials: "include",
+        }
+      );
+
+      if (res.status === 201) {
+        setOrder((prev) => ({ ...prev, order_status: "Archived" }));
+        toast.success("Order Archived", { id: toastid });
+      } else {
+        const data = await res.json();
+        toast.error(data.message, { id: toastid });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Archiving Failed", { id: toastid });
+    }
+  };
 
   return (
     <div className="w-full flex flex-col gap-8 md:flex-row">
@@ -33,7 +95,7 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
         />
       </figure>
       <div className="flex flex-col gap-1 flex-1">
-        <h2 className="text-4xl">{product_name}</h2>
+        <h2 className="text-4xl mb-1">{product_name}</h2>
         <p className="dimmed-text ">{description}</p>
 
         <div className="flex gap-4 items-center mb-2">
@@ -44,12 +106,31 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
           <p className="line-through">${offer_price}</p>
         </div>
 
-        <p className="dimmed-text my-2">Status: {order_status}</p>
+        <h2 className="text-xl mt-6">Order Info</h2>
+        <p className="dimmed-text ">Order Status: {order_status}</p>
 
-        <div className="mb-4">calculations</div>
+        <div className="flex max-w-40 justify-between border-b border-(--border-button) ">
+          <div className="flex items-end">
+          </div>
+          <div>
+            <p className="dimmed-text ">${offer_price}</p>
+            <p className="dimmed-text text-end">x{quantity}</p>
+          </div>
+        </div>
+
+        <div className="flex max-w-40 justify-between mb-2">
+          <div className="flex items-end">
+            <p className="dimmed-text">Total: </p>
+          </div>
+          <div>
+            <p className="dimmed-text font-bold ">${subtotal}</p>
+          </div>
+        </div>
+        <p className="dimmed-text mb-8 ">Order Time: {formattedDistance} ({formattedDate})</p>
+
 
         <h2 className="text-xl">Recipient Info:</h2>
-        <div className="flex flex-col gap-1 mb-3">
+        <div className="flex flex-col gap-1 mb-6">
           <p className="dimmed-text ">Recipient: {full_name}</p>
           <p className="dimmed-text ">Phone: {phone}</p>
           <p className="dimmed-text ">Address: {address}</p>
@@ -63,9 +144,23 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
           >
             View In Shop
           </Link>
-          {order_status === "pending" ? (
-            <button className="button-secondary h-12 w-36 flex justify-center items-center">
+          {order_status === "Pending" ? (
+            <button
+              className="button-secondary h-12 w-36 flex justify-center items-center"
+              onClick={handleCancel}
+            >
               Cancel Order
+            </button>
+          ) : (
+            <></>
+          )}
+          {order_status === "Cancelled" || order_status === "Completed" ? (
+            <button
+              className="button-secondary h-12 w-36 flex justify-center items-center text-xs! gap-1"
+              onClick={handleArchive}
+            >
+              <ArchiveIcon size={20} weight="light" />
+              <p>Archive</p>
             </button>
           ) : (
             <></>

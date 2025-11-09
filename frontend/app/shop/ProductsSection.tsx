@@ -1,4 +1,3 @@
- 
 import ProductCard from "./ProductCard";
 import { ProductCardType } from "@/types/ProductsTypes";
 

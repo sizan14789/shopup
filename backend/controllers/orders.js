@@ -7,7 +7,7 @@ export const getOrders = async (req, res) => {
 
   const orders = (
     await pool.query(
-      `select o.id, p.id as product_id, o.created_at, p.image as product_image, p.name as product_name, quantity, p.offer_price, quantity*offer_price as subtotal, order_status from "order" as o join product as p on o.product_id = p.id where buyer_id=$1;`,
+      `select o.id, p.id as product_id, o.created_at, p.image as product_image, p.name as product_name, quantity, p.offer_price, quantity*offer_price as subtotal, order_status from "order" as o join product as p on o.product_id = p.id where buyer_id=$1 AND order_status!='Archived'`,
       [buyerid]
     )
   )?.rows;
@@ -27,12 +27,12 @@ export const getOrderById = async (req, res) => {
       [id, buyerid]
     )
   )?.rows[0];
-  
+
   res.status(200).send(order);
 };
 
 // update order incomplete
-export const updateOrder = async (req, res, next) => {
+export const addOrders = async (req, res, next) => {
   const { buyerid } = req;
 
   const body = req.body;
@@ -94,4 +94,42 @@ export const updateOrder = async (req, res, next) => {
   ]);
 
   return res.status(201).json({ success: true, message: "Order Placed" });
+};
+
+// cancel order
+export const cancelOrder = async (req, res, next) => {
+  const { buyerid } = req;
+  const id = req.params.id;
+
+  const order_status = (await pool.query(`SELECT order_status FROM "order" WHERE buyer_id=$1 AND id=$2`, [buyerid, id]))?.rows[0]?.order_status;
+
+  if(order_status!=="Pending")
+    return next(new ApiError("Unauthorized", 401, "Order is not pending anymore"));
+
+  await pool.query(
+    `UPDATE "order" SET order_status='Cancelled' WHERE buyer_id=$1 AND id=$2`,
+    [buyerid, id]
+  );
+
+  return res.status(201).json({ success: true, message: "Order Canceled" });
+};
+
+// archive order
+export const archiveOrder = async (req, res, next) => {
+  const { buyerid } = req;
+  const id = req.params.id;
+
+  const order_status = (await pool.query(`SELECT order_status FROM "order" WHERE buyer_id=$1 AND id=$2`, [buyerid,  id]))?.rows[0]?.order_status;
+
+  console.log(order_status)
+
+  if(order_status!=="Cancelled" && order_status!=="Completed")
+    return next(new ApiError("Unauthorized", 401, "Order is not cancelled or completed"));
+
+  await pool.query(
+    `UPDATE "order" SET order_status='Archived' WHERE buyer_id=$1 AND id=$2`,
+    [buyerid, id]
+  );
+
+  return res.status(201).json({ success: true, message: "Order Archived" });
 };

@@ -22,8 +22,6 @@ export const getAllProducts = async (req, res) => {
   const search = queries.search ? queries.search : "" ;
   const limit = queries.limit ? Number(queries.limit) : 1000;
 
-  console.log(search, limit)
-
   const data = (
     await pool.query(
       `select id, name as product_name, image as product_image, rating, offer_price from product where name ilike $1 order by created_at desc Limit $2`,
