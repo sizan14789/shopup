@@ -12,28 +12,6 @@ export default function CartContainer({
   const [cartDetails, setCartDetails] =
     useState<CartItemType[]>(cartItemDetailsInfo);
 
-  // useEffect(() => {
-  //   if (userState !== "loggedIn") return;
-  //   const getCartDetails = async () => {
-  //     try {
-  //       const res = await fetch(
-  //         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cartDetails`,
-  //         {
-  //           method: "get",
-  //           credentials: "include",
-  //         }
-  //       );
-  //       if (res.status === 200) {
-  //         const data = await res.json();
-  //         setCartDetails(data);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getCartDetails();
-  // }, [userState]);
-
   // delete from cart
   const handleDeleteFromCartDetails = (id: number) => {
     const updatedCartProductDetails = cartDetails.filter((each) => {
@@ -87,9 +65,9 @@ export default function CartContainer({
         <h2 className="lg:col-span-2 flex justify-center lg:justify-start">
           Product
         </h2>
-        <p className="hidden lg:block">Price</p>
-        <p className="flex justify-center">Quantity</p>
-        <p className="flex justify-center lg:justify-start">Subtotal</p>
+        <h2 className="hidden lg:block">Price</h2>
+        <h2 className="flex justify-center">Quantity</h2>
+        <h2 className="flex justify-center lg:justify-start">Subtotal</h2>
       </div>
 
       {cartDetails.map((each: CartItemType) => {

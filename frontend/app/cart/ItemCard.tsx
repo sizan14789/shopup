@@ -2,7 +2,7 @@ import useCartStore from "@/context/CartStore";
 import { updateCart } from "@/lib/cartLib";
 import { TrashIcon } from "@phosphor-icons/react";
 import Image from "next/image";
-import Link from "next/link"; 
+import Link from "next/link";
 import toast from "react-hot-toast";
 
 type ParamsType = {
@@ -17,13 +17,7 @@ const ItemCard = ({
   handleDeleteFromCartDetails,
 }: ParamsType) => {
   const { cart, setCart } = useCartStore();
-  const {
-    id,
-    product_name,
-    offer_price,
-    product_image, 
-    quantity,
-  } = data;
+  const { id, product_name, offer_price, product_image, quantity } = data;
 
   //increment or decrement
   const changeQuantity = async (amount: number) => {
@@ -46,16 +40,14 @@ const ItemCard = ({
     if (changedAnything) {
       handleQuantityChange(id, amount);
 
-      if (changedAnything) {
-        try {
-          const res = await updateCart(updatedCart);
-          if (!(res === 201)) {
-            toast.error("Quantity was not changed. Error unknown");
-          }
-        } catch (error) {
-          console.log(error);
+      try {
+        const res = await updateCart(updatedCart);
+        if (!(res === 201)) {
           toast.error("Quantity was not changed. Error unknown");
         }
+      } catch (error) {
+        console.log(error);
+        toast.error("Quantity was not changed. Error unknown");
       }
     }
   };
@@ -97,7 +89,7 @@ const ItemCard = ({
           className="object-cover rounded-lg max-w-20 lg:max-w-28 "
         />
         <div className="flex gap-1 md:gap-2 flex-col  w-full">
-          <h2 className=" text-center lg:text-start md:text-xl">{product_name}</h2>
+          <h2 className=" text-center lg:text-start ">{product_name}</h2>
         </div>
       </Link>
 

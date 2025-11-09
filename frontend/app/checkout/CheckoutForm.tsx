@@ -74,8 +74,8 @@ export default function CheckoutForm() {
         />
         <h2 className="text-xl mb-2">Address</h2>
         <label htmlFor="division" className="flex flex-col gap-2 mb-6">
-          <p className="text-sm">Division</p>
-          <select className="input max-w-140 max-w-40" name="division" required>
+          <p className="text-xs text-(--subtext) font-semibold">Division</p>
+          <select className="input max-w-140" name="division" required>
             <option value="dhaka">Dhaka</option>
             <option value="maymenshing">Maymenshing</option>
             <option value="sylhet">Sylhet</option>
@@ -132,9 +132,6 @@ export default function CheckoutForm() {
           Checkout
         </button>
       </form>
-      <p className="text-xs text-(--subtext)">
-        Would your like to <button onClick={()=> router.back()} className="text-(--highlight) cursor-pointer" >Go Back</button>?
-      </p>
     </div>
   );
 }

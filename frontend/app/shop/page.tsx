@@ -1,6 +1,9 @@
+import Error from "@/ui/components/Error";
 import ProductsSection from "./ProductsSection";
 
-const getShopProducts = async (queryParams: Record<string, string | string[] | undefined>) => {
+const getShopProducts = async (
+  queryParams: Record<string, string | string[] | undefined>
+) => {
   const { search, limit } = queryParams;
 
   let query = "";
@@ -30,14 +33,20 @@ export default async function Shop({
   const queryParams = await searchParams;
   const productsArray = await getShopProducts(queryParams);
 
-  let searchString = ""
-  if(typeof(queryParams.search)==="string")
-    searchString = queryParams.search;
+  let searchString = "";
+  if (typeof queryParams.search === "string") searchString = queryParams.search;
 
   return (
     <div className="shell mb-20 grow flex">
       <div className="core grow flex flex-col">
-        <ProductsSection productsArray={productsArray} searchString={searchString} />
+        {productsArray ? (
+          <ProductsSection
+            productsArray={productsArray}
+            searchString={searchString}
+          />
+        ) : (
+          <Error />
+        )}
       </div>
     </div>
   );

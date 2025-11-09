@@ -40,7 +40,7 @@ export default async function Cart() {
         <h2 className="text-2xl mb-4">Checkout</h2>
         <div className=" flex gap-10 lg:gap-20 flex-col-reverse md:flex-row w-full max-w-280 mx-auto">
           <CheckoutForm />
-          <CheckoutDisplay  checkoutDetails={checkoutDetails} />
+          <CheckoutDisplay  data={checkoutDetails} />
         </div>
       </div>
     </div>

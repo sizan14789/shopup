@@ -1,4 +1,4 @@
-next -> make checkout display dynamic so that items can be edited right there
+Add sorting on the shop section by default, price low to high and high to low
 
 update the slider to point to 3 different pages
 1st for top selling item
