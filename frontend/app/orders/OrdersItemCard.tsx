@@ -42,7 +42,7 @@ export default function OrdersItemCard({
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Cancel Failed");
     }
   };
@@ -66,7 +66,7 @@ export default function OrdersItemCard({
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Archive Failed");
     }
   };

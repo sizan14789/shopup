@@ -30,7 +30,6 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
 
   const formattedDate = format(new Date(created_at), "dd-MM-yyyy")
   const formattedDistance = formatDistance(new Date(created_at), new Date(), { addSuffix: true })
-  console.log(formattedDistance)
 
   // cancel order
   const handleCancel = async () => {
@@ -52,7 +51,7 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
         toast.error(data.message, { id: toastid });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Cancel Failed", { id: toastid });
     }
   };
@@ -78,7 +77,7 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
         toast.error(data.message, { id: toastid });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Archiving Failed", { id: toastid });
     }
   };

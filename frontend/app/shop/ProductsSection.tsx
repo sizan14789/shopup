@@ -1,3 +1,4 @@
+import FIlterBox from "./FilterBox";
 import ProductCard from "./ProductCard";
 import { ProductCardType } from "@/types/ProductsTypes";
 
@@ -12,7 +13,7 @@ export default function ProductsSection({
     <div className="w-full ">
       <div className="text-2xl my-1 mt-6 flex justify-between">
         <h2>Shop</h2>
-        <button className="button-secondary h-12 w-36 flex justify-center items-center">Filter</button>
+        <FIlterBox search={searchString} />
       </div>
       {searchString ? (
         <p className="mt-2 text-sm text-(--subtext)  ">

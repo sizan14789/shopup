@@ -32,8 +32,6 @@ export const handleAddToCart = async (params: ParamsTypeForAddToCart) => {
 
   setCart(updatedCart);
 
-  console.log(updatedCart)
-
   try {
     const res = await updateCart(updatedCart)
     if (!(res===201)) {
@@ -41,7 +39,7 @@ export const handleAddToCart = async (params: ParamsTypeForAddToCart) => {
       return false;
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return false;
   }
   return true;

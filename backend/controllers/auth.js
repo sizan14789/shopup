@@ -49,8 +49,7 @@ export const signup = async (req, res, next) => {
     username: createdUser.username,
     email: createdUser.email,
     role: createdUser.role,
-  };
-  console.log(responseUser )
+  }; 
 
   return res.status(201).json(responseUser);
 };

@@ -38,7 +38,7 @@ export default function UserSetter({
           console.log(data.message);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getCart();

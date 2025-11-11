@@ -4,11 +4,17 @@ import ProductsSection from "./ProductsSection";
 const getShopProducts = async (
   queryParams: Record<string, string | string[] | undefined>
 ) => {
-  const { search, limit } = queryParams;
+  const { search, limit, category, min_price, max_price, order_by, order } =
+    queryParams;
 
   let query = "";
   query += "?search=" + (search || "");
-  query += "&limit=" + (limit || "");
+  query += limit ? "&limit=" + limit : "";
+  query += category ? "&category=" + category : "";
+  query += min_price ? "&min_price=" + min_price : "";
+  query += max_price ? "&max_price=" + max_price : "";
+  query += order_by ? "&order_by=" + order_by : "";
+  query += order ? "&order=" + order : "";
 
   try {
     const res = await fetch(
@@ -20,7 +26,7 @@ const getShopProducts = async (
     }
     return null;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return null;
   }
 };

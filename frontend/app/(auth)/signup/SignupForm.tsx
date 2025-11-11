@@ -47,7 +47,7 @@ export default function SignupForm() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Internal error");
     }
   };

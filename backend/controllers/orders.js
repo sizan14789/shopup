@@ -85,7 +85,7 @@ export const addOrders = async (req, res, next) => {
         ]
       );
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -120,8 +120,6 @@ export const archiveOrder = async (req, res, next) => {
   const id = req.params.id;
 
   const order_status = (await pool.query(`SELECT order_status FROM "order" WHERE buyer_id=$1 AND id=$2`, [buyerid,  id]))?.rows[0]?.order_status;
-
-  console.log(order_status)
 
   if(order_status!=="Cancelled" && order_status!=="Completed")
     return next(new ApiError("Unauthorized", 401, "Order is not cancelled or completed"));

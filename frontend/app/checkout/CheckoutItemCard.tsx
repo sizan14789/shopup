@@ -43,7 +43,7 @@ const CheckoutItemCard = ({
           toast.error("Quantity was not changed. Error unknown");
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
         toast.error("Quantity was not changed. Error unknown");
       }
     }

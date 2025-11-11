@@ -41,7 +41,7 @@ export default function CheckoutForm() {
         },
         credentials: "include"
       })
-      console.log(res)
+
       if(res.status===201){
         toast.success("Order placed")
         setCart({})
@@ -50,7 +50,7 @@ export default function CheckoutForm() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   
