@@ -19,14 +19,14 @@ export default async function ShopComponent() {
   if (products === null)
     return (
       <div className="flex flex-col w-full">
-        <h2 className="text-2xl mb-4">Products</h2>
+        <h2 className="text-xl mb-4">Latest Products</h2>
         <h2 className="text-(--subtext) text-sm self-center">Error Loading Products</h2>
       </div>
     );
 
   return (
     <div className="flex flex-col w-full">
-      <h2 className="text-2xl">Latest Products</h2>
+      <h2 className="text-xl font-semibold">Latest Products</h2>
       <div className="w-full py-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
         {products.map((each: ProductCardType) => {
           return <ProductCard data={each} key={each.id} />;

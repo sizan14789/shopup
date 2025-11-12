@@ -1,14 +1,6 @@
-add a line before categories
-----------------------------------categories------------------------------
+add products to database.....20 for each category
+
 fix the swiper
-
-add 3 categories
-Smartphones
-Laptops
-Accessories
-
-change all page headings to folder structure style 
-e.g. Home / Shop / product_no
 
 update the slider to point to 3 different pages
 1st for top selling item

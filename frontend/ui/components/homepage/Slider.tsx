@@ -40,7 +40,7 @@ const sliderInfo = [
 
 export default function Slider() {
   return (
-    <div className="w-full my-10">
+    <div className="w-full my-10 mt-5 lg:mt-10">
       <div className="overflow-hidden rounded-md">
         <Swiper
           modules={[Pagination, Autoplay]}
