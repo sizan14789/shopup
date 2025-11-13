@@ -1,8 +1,14 @@
+------------------------To do--------------------------
+add similar products section under single page
+start buyer side
 
-
-
-Archived orders page or something like history
-
-// extreme advanced
+------------------------Chores--------------------------
+Archived orders page
+Wishlist page
 fix the images of the products 
+
+------------------------Advanced--------------------------
 Merge existing orders based on pending orders
+
+------------------------Prod--------------------------
+remove backend urls from all fetch where cookie is sent 

@@ -43,6 +43,7 @@ export const signup = async (req, res, next) => {
     httpOnly: true,
     sameSite: "lax",
     maxAge: 1000 * 3600 * 24 * 7,
+    secure: process.env.ENV==="production"
   });
 
   const responseUser = {
@@ -86,6 +87,7 @@ export const login = async (req, res, next) => {
     httpOnly: true,
     sameSite: "lax",
     maxAge: 1000 * 3600 * 24 * 7,
+    secure: process.env.ENV==="production"
   });
 
   const responseUser = {
@@ -137,6 +139,7 @@ export const logout = async (req, res, next) => {
     httpOnly: true,
     sameSite: "lax",
     maxAge: 1000 * 3600 * 24 * 7,
+    secure: process.env.ENV==="production"
   });
 
   return res.status(200).json({success: true, message: "Session deleted"});
