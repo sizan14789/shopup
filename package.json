@@ -2,13 +2,13 @@
   "name": "shopup",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/sizan14789/skykart#readme",
+  "homepage": "https://github.com/sizan14789/shopup#readme",
   "bugs": {
-    "url": "https://github.com/sizan14789/skykart/issues"
+    "url": "https://github.com/sizan14789/shopup/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sizan14789/skykart.git"
+    "url": "git+https://github.com/sizan14789/shopup.git"
   },
   "license": "ISC",
   "author": "sizan",

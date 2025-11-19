@@ -11,7 +11,6 @@ import LogoutAndUpdate from "./LogoutAndUpdate";
 
 export default async function User() {
   const user = await getUser();
-
   if (!user) redirect("/");
 
   const { username, email, role } = user;

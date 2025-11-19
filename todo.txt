@@ -1,4 +1,7 @@
 ------------------------To do---------------------------
+add wishlist 
+nav Highlight based on page
+
 start buyer side
 
 ------------------------Chores--------------------------

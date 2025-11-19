@@ -128,3 +128,17 @@ export const archiveOrder = async (req, res, next) => {
 
   return res.status(201).json({ success: true, message: "Order Archived" });
 };
+
+// get archived
+export const getArchived = async (req, res) => {
+  const { buyerid } = req;
+
+  const orders = (
+    await pool.query(
+      `select o.id, p.id as product_id, o.created_at, p.image as product_image, p.name as product_name, quantity, p.offer_price, quantity*offer_price as subtotal, order_status from "order" as o join product as p on o.product_id = p.id where buyer_id=$1 AND order_status='Archived' or order_status='Completed'`,
+      [buyerid]
+    )
+  )?.rows;
+
+  res.status(200).send(orders);
+};

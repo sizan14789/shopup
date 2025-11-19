@@ -46,13 +46,7 @@ export default function Footer() {
                 href="/shop"
               >
                 Shop
-              </Link>
-              <Link
-                className="text-xs text-(--subtext) hover:text-(--secondary) duration-200 "
-                href="/categories"
-              >
-                Categories
-              </Link>
+              </Link> 
               <Link
                 className="text-xs text-(--subtext) hover:text-(--secondary) duration-200 "
                 href="/cart"
@@ -64,6 +58,12 @@ export default function Footer() {
                 href="/orders"
               >
                 Orders
+              </Link>
+              <Link
+                className="text-xs text-(--subtext) hover:text-(--secondary) duration-200 "
+                href="/archive"
+              >
+                Archives
               </Link>
             </div>
 

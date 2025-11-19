@@ -62,6 +62,8 @@ export default function OrdersContainer({
           />
         );
       })}
+
+      <p className="mt-4 text-sm"><Link href="/archive" className="text-(--highlight)" >See</Link> archives and completed orders?</p>
     </>
   );
 }

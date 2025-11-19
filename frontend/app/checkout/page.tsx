@@ -2,6 +2,7 @@ import { getSessionid, getUser } from "@/lib/initialLoadLib";
 import CheckoutDisplay from "./CheckoutDisplay";
 import CheckoutForm from "./CheckoutForm";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const getCheckoutItemDetails = async (sessionid: string) => {
   try {
@@ -27,8 +28,7 @@ const getCheckoutItemDetails = async (sessionid: string) => {
 
 export default async function Cart() {
   const user = await getUser();
-  // if(!user)
-  //   redirect('/')
+  if (!user) redirect("/");
 
   const sessionid = await getSessionid();
   let checkoutDetails = [];

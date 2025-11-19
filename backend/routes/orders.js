@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateBuyer } from "../middlewares/validateUser.js";
-import { addOrders, archiveOrder, cancelOrder, getOrderById, getOrders } from "../controllers/orders.js";
+import { addOrders, archiveOrder, cancelOrder, getArchived, getOrderById, getOrders } from "../controllers/orders.js";
 
 const router = Router();
 
@@ -18,5 +18,8 @@ router.post("/api/orders/cancel/:id", validateBuyer, cancelOrder);
 
 // archive order
 router.post("/api/orders/archive/:id", validateBuyer, archiveOrder);
+
+// get archived
+router.get("/api/archived", validateBuyer, getArchived);
 
 export default router;
