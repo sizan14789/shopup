@@ -42,7 +42,7 @@ export default function SignupForm() {
         toast.success("Signed up");
         setUser(data);
         router.refresh();
-        setTimeout(() => router.push("/"), 100);
+        setTimeout(() => router.push("/"), 400);
       } else {
         toast.error(data.message);
       }
