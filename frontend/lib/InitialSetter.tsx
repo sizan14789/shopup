@@ -24,7 +24,7 @@ export default function UserSetter({
     const getCart = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart`,
+          `/api/cart`,
           {
             method: "get",
             credentials: "include",

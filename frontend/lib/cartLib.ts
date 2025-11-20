@@ -1,7 +1,7 @@
 
 
 export async function updateCart(updatedCart: Record<string, number>) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart`, {
+  const res = await fetch(`/api/cart`, {
     method: "POST",
     body: JSON.stringify(updatedCart),
     headers: {

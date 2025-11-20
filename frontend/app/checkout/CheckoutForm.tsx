@@ -35,7 +35,7 @@ export default function CheckoutForm() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`,
+        `/api/orders`,
         {
           method: "post",
           body: JSON.stringify(body),

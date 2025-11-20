@@ -6,7 +6,7 @@ import OrdersContainer from "./OrdersContainer";
 const getOrdersDetails = async (sessionid: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`,
+      `${process.env.BACKEND_URL}/api/orders`,
       {
         method: "get",
         headers: {

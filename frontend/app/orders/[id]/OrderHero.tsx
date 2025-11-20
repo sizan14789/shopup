@@ -36,7 +36,7 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
     const toastid = toast.loading("Cancelling");
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/cancel/${id}`,
+        `/api/orders/cancel/${id}`,
         {
           method: "post",
           credentials: "include",
@@ -62,7 +62,7 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/archive/${id}`,
+        `/api/orders/archive/${id}`,
         {
           method: "post",
           credentials: "include",

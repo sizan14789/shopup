@@ -27,7 +27,7 @@ export default function OrdersItemCard({
   const handleCancel = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/cancel/${id}`,
+        `/api/orders/cancel/${id}`,
         {
           method: "post",
           credentials: "include",
@@ -51,7 +51,7 @@ export default function OrdersItemCard({
   const handleArchive = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/archive/${id}`,
+        `/api/orders/archive/${id}`,
         {
           method: "post",
           credentials: "include",

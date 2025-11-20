@@ -6,7 +6,7 @@ import ArchivedContainer from "./ArchivedContainer";
 const getArchivedDetails = async (sessionid: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/archived`,
+      `${process.env.BACKEND_URL}/api/archived`,
       {
         method: "get",
         headers: {

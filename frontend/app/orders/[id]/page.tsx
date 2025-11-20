@@ -6,7 +6,7 @@ import OrderHero from "./OrderHero";
 const getOrderData = async (id: string, sessionid: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${id}`,
+      `${process.env.BACKEND_URL}/api/orders/${id}`,
       {
         method: "GET",
         headers: {

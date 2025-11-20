@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 const getCheckoutItemDetails = async (sessionid: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cartDetails`,
+      `${process.env.BACKEND_URL}/api/cartDetails`,
       {
         method: "get",
         headers: {
