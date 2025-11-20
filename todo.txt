@@ -1,4 +1,5 @@
 ------------------------To do--------------------------- 
+restrict adding to cart when not logged in
 add wishlist
 
 start buyer side
