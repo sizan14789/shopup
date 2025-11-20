@@ -16,9 +16,9 @@ export default function LogoutAndUpdate() {
       if (res.status === 200) {
         toast.success("Logged out");
         setCart({});
-        setUser({})
-        router.refresh();
-        setTimeout(() => router.push("/"), 300);
+        setUser({}) 
+        router.push("/")
+        router.refresh(); 
       } else {
         const data = await res.json();
         toast.error(data.message);

@@ -41,8 +41,8 @@ export default function SignupForm() {
       if (res.status === 201) {
         toast.success("Signed up");
         setUser(data);
-        router.refresh();
-        setTimeout(() => router.push("/"), 300);
+        router.push("/")
+        router.refresh(); 
       } else {
         toast.error(data.message);
       }

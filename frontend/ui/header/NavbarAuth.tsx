@@ -32,8 +32,8 @@ export default function NavbarAuth({ user }: { user: userType }) {
         toast.success("Logged out");
         setCart({});
         setUser({});
-        router.refresh();
-        setTimeout(() => router.push("/"), 300);
+        router.push("/")
+        router.refresh(); 
       } else {
         const data = await res.json();
         toast.error(data.message);
