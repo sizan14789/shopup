@@ -1,5 +1,11 @@
 import Error from "@/ui/components/Error";
 import ProductsSection from "./ProductsSection";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Shop",
+  description: "Shop page of ShopUp",
+};
 
 const getShopProducts = async (
   queryParams: Record<string, string | string[] | undefined>

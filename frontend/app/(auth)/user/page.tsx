@@ -8,6 +8,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import LogoutAndUpdate from "./LogoutAndUpdate";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "User",
+  description: "User page of ShopUp",
+};
 
 export default async function User() {
   const user = await getUser();
@@ -24,26 +30,37 @@ export default async function User() {
             alt="user image"
             width={300}
             height={300}
-            className="object-cover rounded-2xl"
+            className="object-cover rounded-2xl text-[.6rem]"
           />
         </figure>
         <div className="flex flex-col items-center flex-1 sm:items-start">
           <h2 className="text-4xl">@{username}</h2>
-          <p className="dimmed-text" >{email}</p>
-          <p className="my-3">Logged in as <span className="text-(--highlight)"> {role[0]} </span> </p>
+          <p className="dimmed-text">{email}</p>
+          <p className="my-3">
+            Logged in as <span className="text-(--highlight)"> {role[0]} </span>{" "}
+          </p>
           <div className="flex gap-2 mb-3">
-            <Link href="/cart" className="button-rounded h-12 aspect-square flex justify-center items-center">
+            <Link
+              href="/cart"
+              className="button-rounded h-12 aspect-square flex justify-center items-center"
+            >
               <ShoppingCartSimpleIcon size={24} />
             </Link>
 
-            <Link href="/wishlist" className="button-rounded h-12 aspect-square flex justify-center items-center">
+            <Link
+              href="/wishlist"
+              className="button-rounded h-12 aspect-square flex justify-center items-center"
+            >
               <HeartStraightIcon size={24} />
             </Link>
-            <Link href="/orders" className="button-rounded h-12 aspect-square flex justify-center items-center">
+            <Link
+              href="/orders"
+              className="button-rounded h-12 aspect-square flex justify-center items-center"
+            >
               <TruckIcon size={24} />
             </Link>
           </div>
-          
+
           {/* todo add modal here to logout or update info */}
           <LogoutAndUpdate />
         </div>

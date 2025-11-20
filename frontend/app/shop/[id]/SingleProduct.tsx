@@ -22,10 +22,10 @@ export default function SingleProduct({ data }: { data: soloProductType }) {
       <figure className="flex-1 flex justify-center px-10 items-start">
         <Image
           src={product_image}
-          height={800}
-          width={800}
+          height={400}
+          width={400}
           alt={product_name + " image"}
-          className="rounded-2xl overflow-hidden object-cover"
+          className="rounded-2xl overflow-hidden object-cover  text-[.6rem]"
         />
       </figure>
       <div className="flex flex-col gap-1 flex-1">

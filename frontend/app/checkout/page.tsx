@@ -3,18 +3,21 @@ import CheckoutDisplay from "./CheckoutDisplay";
 import CheckoutForm from "./CheckoutForm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Checkout",
+  description: "Checkout page of ShopUp",
+};
 
 const getCheckoutItemDetails = async (sessionid: string) => {
   try {
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/cartDetails`,
-      {
-        method: "get",
-        headers: {
-          Cookie: "sessionid=" + sessionid,
-        },
-      }
-    );
+    const res = await fetch(`${process.env.BACKEND_URL}/api/cartDetails`, {
+      method: "get",
+      headers: {
+        Cookie: "sessionid=" + sessionid,
+      },
+    });
     if (res.status === 200) {
       const data = await res.json();
       return data;

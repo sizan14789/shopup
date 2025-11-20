@@ -1,19 +1,22 @@
-import { cookies } from "next/headers"; 
+import { cookies } from "next/headers";
 import { getUser } from "@/lib/initialLoadLib";
 import Link from "next/link";
 import ArchivedContainer from "./ArchivedContainer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Archive",
+  description: "Archive page of ShopUp",
+};
 
 const getArchivedDetails = async (sessionid: string) => {
   try {
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/archived`,
-      {
-        method: "get",
-        headers: {
-          Cookie: "sessionid=" + sessionid,
-        },
-      }
-    );
+    const res = await fetch(`${process.env.BACKEND_URL}/api/archived`, {
+      method: "get",
+      headers: {
+        Cookie: "sessionid=" + sessionid,
+      },
+    });
     if (res.status === 200) {
       const data = await res.json();
       return data;

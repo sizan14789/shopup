@@ -86,7 +86,7 @@ const ItemCard = ({
           width={100}
           alt={product_name + " image in cart"}
           src={product_image}
-          className="object-cover rounded-lg max-w-20 lg:max-w-28 "
+          className="object-cover rounded-lg max-w-20 lg:max-w-28  text-[.6rem]"
         />
         <div className="flex gap-1 md:gap-2 flex-col  w-full">
           <h2 className=" text-center lg:text-start ">{product_name}</h2>

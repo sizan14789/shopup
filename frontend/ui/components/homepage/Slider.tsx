@@ -63,7 +63,7 @@ export default function Slider() {
                         width={1000}
                         height={1000}
                         alt="slide-1"
-                        className="object-cover overflow-hidden"
+                        className="object-cover overflow-hidden  text-[.6rem]"
                       />
                     </figure>
                   </div>

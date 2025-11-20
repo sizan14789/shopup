@@ -1,4 +1,10 @@
 import SignupForm from "./SignupForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sign Up",
+  description: "Sign Up page of ShopUp",
+};
 
 export default function Signup() {
   return (

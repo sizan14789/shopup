@@ -26,13 +26,10 @@ export default function OrdersItemCard({
   // cancel Orders
   const handleCancel = async () => {
     try {
-      const res = await fetch(
-        `/api/orders/cancel/${id}`,
-        {
-          method: "post",
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`/api/orders/cancel/${id}`, {
+        method: "post",
+        credentials: "include",
+      });
 
       if (res.status === 201) {
         handleCancelStateUpdate(id);
@@ -50,13 +47,10 @@ export default function OrdersItemCard({
   // archive Orders
   const handleArchive = async () => {
     try {
-      const res = await fetch(
-        `/api/orders/archive/${id}`,
-        {
-          method: "post",
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`/api/orders/archive/${id}`, {
+        method: "post",
+        credentials: "include",
+      });
 
       if (res.status === 201) {
         handleArchiveStateUpdate(id);
@@ -82,7 +76,7 @@ export default function OrdersItemCard({
           width={100}
           alt={product_name + " image in cart"}
           src={product_image}
-          className="object-cover rounded-lg max-w-20 lg:max-w-28 "
+          className="object-cover rounded-lg max-w-20 lg:max-w-28 text-[.6rem] "
         />
         <div className="flex gap-1 md:gap-2 flex-col  w-full">
           <h2 className=" text-center lg:text-start">{product_name}</h2>

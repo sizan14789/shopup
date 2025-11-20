@@ -2,6 +2,12 @@ import { cookies } from "next/headers";
 import CartContainer from "./CartContainer";
 import { getUser } from "@/lib/initialLoadLib";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cart",
+  description: "Cart page of ShopUp",
+};
 
 const getCartItemDetails = async (sessionid: string) => {
   try {

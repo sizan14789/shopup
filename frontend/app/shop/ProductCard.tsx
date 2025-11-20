@@ -1,11 +1,13 @@
 "use client";
 
 import useCartStore from "@/context/CartStore";
+import { useUserStore } from "@/context/UserStore";
 import { handleAddToCart, handleBuyNow } from "@/lib/cartLib";
 import { ProductCardType } from "@/types/ProductsTypes";
 import { ShoppingCartIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function ProductCard({ data }: { data: ProductCardType }) {
   const {
@@ -19,15 +21,18 @@ export default function ProductCard({ data }: { data: ProductCardType }) {
   } = data;
   const { cart, setCart } = useCartStore();
   const router = useRouter();
+  const { user } = useUserStore();
 
   const handleAddToCartButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleAddToCart({ id, cart, setCart });
+    if (user.username) handleAddToCart({ id, cart, setCart });
+    else toast.error("Not Logged in");
   };
 
   const handleBuyNowButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleBuyNow({ id, cart, setCart, router });
+    if (user.username) handleBuyNow({ id, cart, setCart, router });
+    else toast.error("Not Logged in");
   };
 
   return (
@@ -41,7 +46,7 @@ export default function ProductCard({ data }: { data: ProductCardType }) {
           width={300}
           height={300}
           alt={product_name + " " + "image"}
-          className="object-cover group-hover:scale-110 duration-200"
+          className="object-cover group-hover:scale-110 duration-200  text-[.6rem]"
         />
         <h2 className="text-center text-sm mt-4">
           {product_name.length > 40
@@ -53,7 +58,7 @@ export default function ProductCard({ data }: { data: ProductCardType }) {
       <div className="flex flex-col mb-2 items-center gap-2">
         <p className="text-(--subtext) text-xs ">Rating: {rating}/5</p>
         <div className="flex gap-1 items-end">
-          <p>${offer_price}</p> 
+          <p>${offer_price}</p>
           <p className="line-through text-xs mb-0.5">${price}</p>
         </div>
       </div>
@@ -66,7 +71,7 @@ export default function ProductCard({ data }: { data: ProductCardType }) {
           <ShoppingCartIcon size={20} weight="light" />
         </button>
         <button
-          className="button-secondary rounded-full! justify-center items-center h-10 flex-1"
+          className="button-secondary rounded-full! justify-center items-center h-10 flex-1 text-xs! md:text-[1rem]!"
           onClick={(e) => handleBuyNowButtonClick(e)}
         >
           Buy Now

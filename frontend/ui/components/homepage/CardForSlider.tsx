@@ -32,7 +32,7 @@ export default function CardForSlider({data}: {data:ProductCardType }) {
           width={300}
           height={300}
           alt={product_name+" "+"image"}
-          className="object-cover group-hover:scale-110 duration-200"
+          className="object-cover group-hover:scale-110 duration-200  text-[.6rem]"
         />
       </figure>
 

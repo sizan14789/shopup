@@ -20,7 +20,9 @@ export default async function ShopComponent() {
     return (
       <div className="flex flex-col w-full">
         <h2 className="text-xl mb-4">Latest Products</h2>
-        <h2 className="text-(--subtext) text-sm self-center">Error Loading Products</h2>
+        <h2 className="text-(--subtext) text-sm self-center">
+          Error Loading Products
+        </h2>
       </div>
     );
 
@@ -32,7 +34,10 @@ export default async function ShopComponent() {
           return <ProductCard data={each} key={each.id} />;
         })}
       </div>
-      <Link href="/shop" className="button-primary h-12 w-32 flex justify-center items-center self-center mt-2 rounded-full!">
+      <Link
+        href="/shop"
+        className="button-primary h-12 w-32 flex justify-center items-center self-center mt-2 rounded-full!"
+      >
         See More
       </Link>
     </div>

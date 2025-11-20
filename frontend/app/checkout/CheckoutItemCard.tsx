@@ -58,7 +58,7 @@ const CheckoutItemCard = ({
             width={100}
             alt={product_name + " image in cart"}
             src={product_image}
-            className="object-cover rounded-lg max-w-20 mb-2"
+            className="object-cover rounded-lg max-w-20 mb-2  text-[.6rem]"
           />
           <h2 className="text-sm">{product_name}</h2>
         </figure>
