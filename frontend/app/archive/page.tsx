@@ -3,6 +3,7 @@ import { getUser } from "@/lib/initialLoadLib";
 import Link from "next/link";
 import ArchivedContainer from "./ArchivedContainer";
 import { Metadata } from "next";
+import { FolderStructure } from "@/ui/components/FolderStructure";
 
 export const metadata: Metadata = {
   title: "Archive",
@@ -41,7 +42,10 @@ export default async function Orders() {
   return (
     <div className="shell flex grow my-10">
       <div className="core grow flex flex-col">
-        <h2 className="text-2xl mb-4">Archive</h2>
+        <FolderStructure
+          list={[{ text: "Archive", url: "archive" }]}
+          margin="mb-4"
+        />
         <div className="w-full flex flex-col">
           {user ? (
             <ArchivedContainer archivedDetails={archivedDetails} />

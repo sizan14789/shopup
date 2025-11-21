@@ -1,5 +1,3 @@
-
-
 export async function updateCart(updatedCart: Record<string, number>) {
   const res = await fetch(`/api/cart`, {
     method: "POST",
@@ -16,11 +14,11 @@ interface ParamsTypeForAddToCart {
   id: number;
   cart: Record<string, number>;
   setCart: (state: Record<string, number>) => void;
-};
+}
 
 interface ParamsTypeForBuyNow extends ParamsTypeForAddToCart {
   router: { push: (address: string) => void };
-};
+}
 
 // handle add to cart
 export const handleAddToCart = async (params: ParamsTypeForAddToCart) => {
@@ -33,8 +31,8 @@ export const handleAddToCart = async (params: ParamsTypeForAddToCart) => {
   setCart(updatedCart);
 
   try {
-    const res = await updateCart(updatedCart)
-    if (!(res===201)) {
+    const res = await updateCart(updatedCart);
+    if (!(res === 201)) {
       console.log("error in sync, check cartLib");
       return false;
     }
@@ -46,9 +44,37 @@ export const handleAddToCart = async (params: ParamsTypeForAddToCart) => {
 };
 
 // handle buy now
-export const handleBuyNow = async (params:ParamsTypeForBuyNow) => {
+export const handleBuyNow = async (params: ParamsTypeForBuyNow) => {
   const { id, cart, setCart, router } = params;
-  const res = await handleAddToCart({id, cart, setCart});
-  if(res)
-    router.push("/cart");
+  const res = await handleAddToCart({ id, cart, setCart });
+  if (res) router.push("/cart");
+  return res;
+};
+
+// handle add to wishlist
+export const handleAddToWishlist = async (id: number) => {
+  try {
+    const res = await fetch(`/api/wishlist/${id}`, {
+      method: "post",
+      credentials: "include",
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+    return { status: 500 };
+  }
+};
+
+// handle remove from wishlist todo complete
+export const handleRemoveFromWishlist = async (id: number) => {
+  try {
+    const res = await fetch(`/api/wishlist/${id}`, {
+      method: "delete",
+      credentials: "include",
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+    return { status: 500 };
+  }
 };

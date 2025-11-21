@@ -4,8 +4,8 @@ import useCartStore from "@/context/CartStore";
 import { useUserStore } from "@/context/UserStore";
 import {
   handleAddToCart,
-  handleAddToWishlist,
   handleBuyNow,
+  handleRemoveFromWishlist,
 } from "@/lib/cartLib";
 import { ProductCardType } from "@/types/ProductsTypes";
 import { HeartIcon, ShoppingCartIcon } from "@phosphor-icons/react";
@@ -13,7 +13,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default function ProductCard({ data }: { data: ProductCardType }) {
+export default function WishlistProductCard({
+  data,
+}: {
+  data: ProductCardType;
+}) {
   const {
     id,
     product_name,
@@ -47,14 +51,15 @@ export default function ProductCard({ data }: { data: ProductCardType }) {
     } else toast.error("Not Logged in");
   };
 
-  const addToWishlist = async (e: React.MouseEvent) => {
+  const removeFromWishlist = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (user.username) {
-      const res = await handleAddToWishlist(id);
+      const res = await handleRemoveFromWishlist(id);
       if (res.status === 201) {
-        toast.success("Added to wishlist");
-      } else if (res.status === 409) {
-        toast("Already in wishlist");
+        toast.success("Deleted from wishlist");
+        router.refresh(); // todo make it dynamic by listing the state up
+      } else if (res.status === 404) {
+        toast("Not in wishlist");
       } else {
         toast.error("Internal Error");
       }
@@ -110,9 +115,9 @@ export default function ProductCard({ data }: { data: ProductCardType }) {
       </span>
       <span
         className="absolute top-0 right-0 bg-(--bg) rounded-4xl h-11 aspect-square flex items-center justify-center text-sm duration-200 hover:bg-(--text) hover:text-(--bg)"
-        onClick={addToWishlist}
+        onClick={removeFromWishlist}
       >
-        <HeartIcon size={20} />
+        <HeartIcon size={20} weight="fill" />
       </span>
     </div>
   );

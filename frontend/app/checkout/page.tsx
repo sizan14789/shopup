@@ -4,6 +4,7 @@ import CheckoutForm from "./CheckoutForm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
+import { FolderStructure } from "@/ui/components/FolderStructure";
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -41,9 +42,10 @@ export default async function Cart() {
   return (
     <div className="shell flex grow my-10">
       <div className="core grow flex flex-col">
-        <p className="text-sm text-(--subtext) flex items-center gap-1 mb-4">
-          <Link href="/">Home</Link> / <Link href="/checkout">Checkout</Link>
-        </p>
+        <FolderStructure
+          list={[{ text: "Checkout", url: "checkout" }]}
+          margin="mb-4"
+        />
         <div className=" flex gap-10 lg:gap-20 flex-col-reverse md:flex-row w-full max-w-280 mx-auto">
           <CheckoutForm />
           <CheckoutDisplay data={checkoutDetails} />

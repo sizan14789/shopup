@@ -1,7 +1,6 @@
-------------------------To do--------------------------- 
-restrict adding to cart when not logged in
-add wishlist
-
+------------------------To do---------------------------  
+add if in wishlist on product card
+create wishlist table at Supabase
 start buyer side
 
 ------------------------Chores--------------------------

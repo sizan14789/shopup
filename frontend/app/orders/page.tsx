@@ -3,6 +3,7 @@ import { getUser } from "@/lib/initialLoadLib";
 import Link from "next/link";
 import OrdersContainer from "./OrdersContainer";
 import { Metadata } from "next";
+import { FolderStructure } from "@/ui/components/FolderStructure";
 
 export const metadata: Metadata = {
   title: "Orders",
@@ -41,8 +42,11 @@ export default async function Orders() {
   return (
     <div className="shell flex grow my-10">
       <div className="core grow flex flex-col">
-        <h2 className="text-2xl mb-4">Orders</h2>
-        <div className="w-full flex flex-col">
+        <FolderStructure
+          list={[{ text: "Orders", url: "orders" }]}
+          margin="mb-4"
+        />
+        <div className="w-full flex flex-col ">
           {user ? (
             <OrdersContainer ordersDetailsInfo={ordersDetails} />
           ) : (

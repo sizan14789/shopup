@@ -2,6 +2,7 @@ import { soloProductType } from "@/types/ProductsTypes";
 import Image from "next/image";
 import CartAndBuy from "./CartAndBuy";
 import Link from "next/link";
+import { FolderStructure } from "@/ui/components/FolderStructure";
 
 export default function SingleProduct({ data }: { data: soloProductType }) {
   const {
@@ -29,10 +30,22 @@ export default function SingleProduct({ data }: { data: soloProductType }) {
         />
       </figure>
       <div className="flex flex-col gap-1 flex-1">
-        <p className="text-sm text-(--subtext) flex items-center gap-1 mb-1">
-          <Link href="/">Home</Link> / <Link href="/shop">Shop</Link> /{" "}
-          <Link href={"/shop/" + id}>{id}</Link>
-        </p>
+        <span>
+          <FolderStructure
+            list={[
+              { text: "Shop", url: "shop" },
+              {
+                text:
+                  product_name.length > 20
+                    ? product_name.slice(0, 20) + "..."
+                    : product_name,
+                url: id.toString(),
+              },
+            ]}
+            text_size="text-xs"
+            margin="mb-2"
+          />
+        </span>
         <h2 className="text-4xl">{product_name}</h2>
         <p className="dimmed-text ">{description}</p>
         <p className="dimmed-text my-2">Rating: {rating}/5</p>

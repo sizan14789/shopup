@@ -3,6 +3,7 @@ import CartContainer from "./CartContainer";
 import { getUser } from "@/lib/initialLoadLib";
 import Link from "next/link";
 import { Metadata } from "next";
+import { FolderStructure } from "@/ui/components/FolderStructure";
 
 export const metadata: Metadata = {
   title: "Cart",
@@ -11,15 +12,12 @@ export const metadata: Metadata = {
 
 const getCartItemDetails = async (sessionid: string) => {
   try {
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/cartDetails`,
-      {
-        method: "get",
-        headers: {
-          Cookie: "sessionid=" + sessionid,
-        },
-      }
-    );
+    const res = await fetch(`${process.env.BACKEND_URL}/api/cartDetails`, {
+      method: "get",
+      headers: {
+        Cookie: "sessionid=" + sessionid,
+      },
+    });
     if (res.status === 200) {
       const data = await res.json();
       return data;
@@ -44,7 +42,7 @@ export default async function Cart() {
   return (
     <div className="shell flex grow my-10">
       <div className="core grow flex flex-col">
-        <h2 className="text-2xl mb-4">Cart</h2>
+        <FolderStructure list={[{ text: "Cart", url: "cart" }]} margin="mb-4" />
         <div className="w-full flex flex-col">
           {user ? (
             <CartContainer cartItemDetailsInfo={cartItemDetails} />

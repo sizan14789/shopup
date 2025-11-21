@@ -2,6 +2,7 @@ import Link from "next/link";
 import FIlterBox from "./FilterBox";
 import ProductCard from "./ProductCard";
 import { ProductCardType } from "@/types/ProductsTypes";
+import { FolderStructure } from "@/ui/components/FolderStructure";
 
 export default function ProductsSection({
   productsArray,
@@ -13,9 +14,7 @@ export default function ProductsSection({
   return (
     <div className="w-full ">
       <div className="my-1 mt-6 flex justify-between items-center">
-        <p className="text-sm text-(--subtext) flex items-center gap-1">
-          <Link href="/" >Home</Link> / <Link href="/shop" >Shop</Link>
-        </p>
+        <FolderStructure list={[{ text: "Shop", url: "shop" }]} />
         <FIlterBox search={searchString} />
       </div>
       {searchString ? (

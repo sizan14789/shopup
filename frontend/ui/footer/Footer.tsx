@@ -46,7 +46,7 @@ export default function Footer() {
                 href="/shop"
               >
                 Shop
-              </Link> 
+              </Link>
               <Link
                 className="text-xs text-(--subtext) hover:text-(--secondary) duration-200 "
                 href="/cart"
@@ -58,6 +58,12 @@ export default function Footer() {
                 href="/orders"
               >
                 Orders
+              </Link>
+              <Link
+                className="text-xs text-(--subtext) hover:text-(--secondary) duration-200 "
+                href="/wishlist"
+              >
+                Wishlist
               </Link>
               <Link
                 className="text-xs text-(--subtext) hover:text-(--secondary) duration-200 "
@@ -81,8 +87,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="w-full text-center text-(--subtext) text-xs border-t  border-t-(--border) items-center py-3">
-        © 2025 Sizan Molla. All
-        rights reserved.
+        © 2025 Sizan Molla. All rights reserved.
       </div>
     </div>
   );
