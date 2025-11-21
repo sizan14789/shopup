@@ -11,7 +11,9 @@ router.get("/api/wishlist", validateBuyer, async (req, res, next) => {
     await pool.query(`select list from wishlist where userid=$1`, [req.buyerid])
   )?.rows;
 
-  const list = wishlistExists[0].list;
+  const list = wishlistExists[0].list.map((each) => Number(each));
+
+  console.log(list);
 
   const wishlist = (
     await pool.query(
