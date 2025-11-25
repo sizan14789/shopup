@@ -28,15 +28,15 @@ app.use(cartsRouter);
 app.use(ordersRouter);
 app.use(wishlistRouter);
 
+// ping route for auto-bot
+app.get("/health", (_req, res) => {
+  res.sendStatus(200);
+});
+
 // Not found
 app.use(notFound);
 
 // Error handling Middleware
 app.use(globalErrorHandler);
-
-// ping route for auto-bot
-app.get("/health", (_req, res) => {
-  res.sendStatus(200);
-});
 
 export default app;
