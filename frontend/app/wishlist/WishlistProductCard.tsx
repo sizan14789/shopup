@@ -15,8 +15,10 @@ import toast from "react-hot-toast";
 
 export default function WishlistProductCard({
   data,
+  removeFromList,
 }: {
   data: ProductCardType;
+  removeFromList: (id: number) => void;
 }) {
   const {
     id,
@@ -56,8 +58,8 @@ export default function WishlistProductCard({
     if (user.username) {
       const res = await handleRemoveFromWishlist(id);
       if (res.status === 201) {
+        removeFromList(id);
         toast.success("Deleted from wishlist");
-        router.refresh(); // todo make it dynamic by listing the state up
       } else if (res.status === 404) {
         toast("Not in wishlist");
       } else {

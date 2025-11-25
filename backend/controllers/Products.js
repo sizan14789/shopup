@@ -16,7 +16,7 @@ export const getProduct = async (req, res, next) => {
   return res.status(200).json(data);
 };
 
-// all products
+// all products todo add if in wishlist boolean
 export const getAllProducts = async (req, res) => {
   let {
     search = "",

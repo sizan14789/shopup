@@ -1,7 +1,6 @@
 import { soloProductType } from "@/types/ProductsTypes";
 import Image from "next/image";
 import CartAndBuy from "./CartAndBuy";
-import Link from "next/link";
 import { FolderStructure } from "@/ui/components/FolderStructure";
 
 export default function SingleProduct({ data }: { data: soloProductType }) {
@@ -61,7 +60,7 @@ export default function SingleProduct({ data }: { data: soloProductType }) {
         <p className="dimmed-text mb-4">Category: {category}</p>
 
         <p className="dimmed-text">Stock: {product_stock}</p>
-        <CartAndBuy id={id} />
+        <CartAndBuy id={id} stockAvailable={product_stock} />
       </div>
     </div>
   );

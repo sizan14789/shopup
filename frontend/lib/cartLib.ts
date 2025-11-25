@@ -11,6 +11,7 @@ export async function updateCart(updatedCart: Record<string, number>) {
 }
 
 interface ParamsTypeForAddToCart {
+  amount?: number;
   id: number;
   cart: Record<string, number>;
   setCart: (state: Record<string, number>) => void;
@@ -22,11 +23,13 @@ interface ParamsTypeForBuyNow extends ParamsTypeForAddToCart {
 
 // handle add to cart
 export const handleAddToCart = async (params: ParamsTypeForAddToCart) => {
-  const { id, cart, setCart } = params;
+  const { amount, id, cart, setCart } = params;
   const updatedCart = { ...cart };
 
-  if (updatedCart[id.toString()]) updatedCart[id.toString()] += 1;
-  else updatedCart[id.toString()] = 1;
+  console.log(amount);
+
+  if (updatedCart[id.toString()]) updatedCart[id.toString()] += amount || 1;
+  else updatedCart[id.toString()] = amount || 1;
 
   setCart(updatedCart);
 
@@ -45,8 +48,8 @@ export const handleAddToCart = async (params: ParamsTypeForAddToCart) => {
 
 // handle buy now
 export const handleBuyNow = async (params: ParamsTypeForBuyNow) => {
-  const { id, cart, setCart, router } = params;
-  const res = await handleAddToCart({ id, cart, setCart });
+  const { amount, id, cart, setCart, router } = params;
+  const res = await handleAddToCart({ amount, id, cart, setCart });
   if (res) router.push("/cart");
   return res;
 };
@@ -65,7 +68,7 @@ export const handleAddToWishlist = async (id: number) => {
   }
 };
 
-// handle remove from wishlist todo complete
+// handle remove from wishlist
 export const handleRemoveFromWishlist = async (id: number) => {
   try {
     const res = await fetch(`/api/wishlist/${id}`, {

@@ -1,6 +1,5 @@
 ------------------------To do---------------------------  
-add if in wishlist on product card
-create wishlist table at Supabase
+add if in wishlist on product card 
 start buyer side
 
 ------------------------Chores--------------------------
@@ -9,6 +8,4 @@ fix the images of the products
 ------------------------Advanced------------------------
 Merge existing orders based on pending orders
 
-------------------------Prod----------------------------
-remove backend urls from all fetch where cookie is sent 
-implement proxy properly
+------------------------Prod---------------------------- 

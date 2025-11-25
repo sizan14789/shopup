@@ -22,26 +22,23 @@ export default function LoginForm() {
     };
 
     try {
-      const res = await fetch(
-        `/api/auth/login`,
-        {
-          method: "POST",
-          body: JSON.stringify(loginInfo),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-
-      const data = await res.json();
+      const res = await fetch(`/api/auth/login`, {
+        method: "POST",
+        body: JSON.stringify(loginInfo),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
       if (res.status === 200) {
+        const data = await res.json();
         toast.success("Logged in");
         setUser(data);
-        router.push("/")
-        router.refresh(); 
+        router.push("/");
+        router.refresh();
       } else {
+        const data = await res.json();
         toast.error(data.message);
       }
     } catch (error) {
