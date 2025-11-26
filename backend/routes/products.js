@@ -5,9 +5,9 @@ import { getAllProducts, getProduct } from "../controllers/Products.js";
 const router = Router();
 
 // all products
-router.get("/api/products", getAllProducts);
+router.get("/products", getAllProducts);
 
 // single product
-router.get("/api/products/:id", getProduct);
+router.get("/products/:id", getProduct);
 
 export default router;

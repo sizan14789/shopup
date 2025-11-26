@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateBuyer } from "../middlewares/validateUser.js"; 
+import { validateBuyer } from "../middlewares/validateUser.js";
 import {
   addToWishlist,
   deleteFromWIshlist,
@@ -9,12 +9,12 @@ import {
 const router = Router();
 
 // get wishlist for users
-router.get("/api/wishlist", validateBuyer, getWishlist);
+router.get("/wishlist", validateBuyer, getWishlist);
 
 // add to wishlist for users
-router.post("/api/wishlist/:id", validateBuyer, addToWishlist);
+router.post("/wishlist/:id", validateBuyer, addToWishlist);
 
 // delete from wishlist for users
-router.delete("/api/wishlist/:id", validateBuyer, deleteFromWIshlist);
+router.delete("/wishlist/:id", validateBuyer, deleteFromWIshlist);
 
 export default router;

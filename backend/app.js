@@ -22,11 +22,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 // routes
-app.use(loginRouter);
-app.use(productsRouter);
-app.use(cartsRouter);
-app.use(ordersRouter);
-app.use(wishlistRouter);
+app.use("/api/auth", loginRouter);
+app.use("/api", productsRouter);
+app.use("/api", cartsRouter);
+app.use("/api", ordersRouter);
+app.use("/api", wishlistRouter);
 
 // ping route for auto-bot
 app.get("/health", (_req, res) => {
