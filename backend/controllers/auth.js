@@ -43,14 +43,15 @@ export const signup = async (req, res, next) => {
     httpOnly: true,
     sameSite: "lax",
     maxAge: 1000 * 3600 * 24 * 7,
-    secure: process.env.ENV==="production"
+    secure: process.env.ENV === "production",
   });
 
   const responseUser = {
     username: createdUser.username,
     email: createdUser.email,
+    image: createdUser.image,
     role: createdUser.role,
-  }; 
+  };
 
   return res.status(201).json(responseUser);
 };
@@ -87,12 +88,13 @@ export const login = async (req, res, next) => {
     httpOnly: true,
     sameSite: "lax",
     maxAge: 1000 * 3600 * 24 * 7,
-    secure: process.env.ENV==="production"
+    secure: process.env.ENV === "production",
   });
 
   const responseUser = {
     username: userExists[0].username,
     email: userExists[0].email,
+    image: userExists[0].image,
     role: userExists[0].role,
   };
 
@@ -102,12 +104,13 @@ export const login = async (req, res, next) => {
 // session
 export const session = async (req, res, next) => {
   const sessionid = req.cookies?.sessionid;
-  if (typeof(sessionid) !== "string") return next(new ApiError("Invalid session", 400));
+  if (typeof sessionid !== "string")
+    return next(new ApiError("Invalid session", 400));
 
   if (!sessionid) return next(new ApiError("No session", 404));
 
   const sessionUserFetched = await pool.query(
-    `select username, email, role from session as s join "user" as u on s.userid=u.id where sessionid=$1 and s.created_at > now() - interval '7 day'`,
+    `select username, email, image, role from session as s join "user" as u on s.userid=u.id where sessionid=$1 and s.created_at > now() - interval '7 day'`,
     [sessionid]
   );
 
@@ -122,17 +125,16 @@ export const session = async (req, res, next) => {
 // logout
 export const logout = async (req, res, next) => {
   const sessionid = req.cookies?.sessionid;
-  
-  if (typeof(sessionid) !== "string") return next(new ApiError("Invalid session", 400));
-  
+
+  if (typeof sessionid !== "string")
+    return next(new ApiError("Invalid session", 400));
+
   if (!sessionid) return next(new ApiError("No session", 404));
 
   const sessionUserFetched = await pool.query(
     `delete from session where sessionid=$1 returning *`,
     [sessionid]
   );
-
-  console.log(sessionUserFetched)
 
   if (sessionUserFetched.rows.length === 0)
     return next(new ApiError("Unauthorized", 401));
@@ -141,8 +143,8 @@ export const logout = async (req, res, next) => {
     httpOnly: true,
     sameSite: "lax",
     maxAge: 0,
-    secure: process.env.ENV==="production"
+    secure: process.env.ENV === "production",
   });
 
-  return res.status(200).json({success: true, message: "Session deleted"});
+  return res.status(200).json({ success: true, message: "Session deleted" });
 };

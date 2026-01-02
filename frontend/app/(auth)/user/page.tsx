@@ -24,7 +24,7 @@ export default async function User() {
   return (
     <div className="shell mt-6 mb-30 sm:my-50">
       <div className="core flex flex-col sm:flex-row gap-6 sm:gap-16">
-        <ImageSection />
+        <ImageSection user={user} />
         <div className="flex flex-col items-center flex-1 sm:items-start pt-6">
           <h2 className="text-4xl">@{username}</h2>
           <p className="dimmed-text">{email}</p>

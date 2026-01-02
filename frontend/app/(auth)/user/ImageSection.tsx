@@ -1,15 +1,71 @@
-import Image from "next/image";
+"use client";
 
-export default function ImageSection() {
+import { userType } from "@/types/UserType";
+import { UploadSimpleIcon } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
+// todo ImageSection
+export default function ImageSection({ user }: { user: userType }) {
+  const router = useRouter();
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target?.files) return;
+
+    const file = e.target?.files[0];
+
+    if (!file.type.startsWith("image")) {
+      toast.error("Upload an image please");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch(`/api/user/changedp`, {
+        method: "post",
+        body: formData,
+      });
+      console.log(res);
+      if (res.status !== 201) {
+        toast.error("Fetch Failed");
+      } else {
+        toast.success("Image Uploaded");
+        router.refresh();
+      }
+    } catch (error) {
+      toast.error("Internal Error");
+      console.log(error);
+    }
+  };
+
   return (
-    <figure className="flex justify-center overflow-hidden rounded-2xl flex-1">
-      <Image
-        src="https://i.ibb.co.com/HpxCbTJg/custom-filename.png"
-        alt="user image"
-        width={300}
-        height={300}
-        className="object-cover rounded-full text-[.6rem] p-6 cursor-pointer"
-      />
+    <figure className=" relative flex justify-center overflow-hidden rounded-2xl flex-1 py-6">
+      <div className="relative overflow-hidden rounded-full group">
+        <Image
+          src={user.image}
+          alt="user image"
+          width={300}
+          height={300}
+          className="object-cover rounded-full text-[.6rem] cursor-pointer aspect-square "
+        />
+        <label
+          className=" h-full w-full flex justify-center items-center top-0 left-0 rounded-full absolute z-23 group-hover:bg-gray-800/50 cursor-pointer duration-250 ease-in-out"
+          htmlFor="image"
+        >
+          <input
+            type="file"
+            id="image"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+        </label>
+        <div className=" h-full w-full flex justify-center items-center top-0 left-0 rounded-full absolute z-20 translate-y-full group-hover:translate-y-0 cursor-pointer duration-250 ease-in-out">
+          <UploadSimpleIcon size={56} />
+        </div>
+      </div>
     </figure>
   );
 }
