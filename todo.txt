@@ -1,5 +1,6 @@
-------------------------To do---------------------------   
-make the backend for product upload....verify seller, verify data, then only add
+------------------------To do---------------------------     
+Stop at storage maybe and call it the final product 
+
 
 ------------------------Chores--------------------------
 fix the images of the products 

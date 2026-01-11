@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex justify-around py-14 pb-14 flex-col md:flex-row gap-10 md:gap-20">
           <div className="flex flex-1 flex-col gap-2">
             <Link
-              href="/"
+              href="/storage"
               className="font-heading text-xl md:text-2xl font-semibold "
             >
               ShopUp

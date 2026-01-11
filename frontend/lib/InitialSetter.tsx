@@ -4,11 +4,7 @@ import useCartStore from "@/context/CartStore";
 import { useUserStore } from "@/context/UserStore";
 import { useEffect } from "react";
 
-export default function UserSetter({
-  userInfo
-}: {
-  userInfo: object;
-}) {
+export default function UserSetter({ userInfo }: { userInfo: object }) {
   const { userState, setUser } = useUserStore();
   const { setCart } = useCartStore();
 
@@ -19,17 +15,14 @@ export default function UserSetter({
   }, []);
 
   useEffect(() => {
-    if (userState==='loading') return;
+    if (userState === "loading") return;
 
     const getCart = async () => {
       try {
-        const res = await fetch(
-          `/api/cart`,
-          {
-            method: "get",
-            credentials: "include",
-          }
-        );
+        const res = await fetch(`/api/cart`, {
+          method: "get",
+          credentials: "include",
+        });
         if (res.status === 200) {
           const data = await res.json();
           setCart(data);

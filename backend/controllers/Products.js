@@ -129,8 +129,7 @@ export const addProduct = async (req, res, next) => {
       brand,
       category,
     ]
-  );
-  console.log(response);
+  ); 
 
   return res.status(201).json({ message: "ok" });
 };
