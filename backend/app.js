@@ -10,6 +10,7 @@ import cartsRouter from "./routes/carts.js";
 import ordersRouter from "./routes/orders.js";
 import wishlistRouter from "./routes/wishlist.js";
 import userRouter from "./routes/user.js";
+import { health, supabase } from "./utils/pings.js";
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
@@ -34,9 +35,8 @@ app.use("/api", wishlistRouter);
 app.use("/api/user", userRouter);
 
 // ping route for auto-bot
-app.get("/health", (_req, res) => {
-  res.sendStatus(200);
-});
+app.get("/health", health);
+app.get("/supabase", supabase);
 
 // Not found
 app.use(notFound);
