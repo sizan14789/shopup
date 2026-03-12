@@ -35,7 +35,7 @@ export default async function RootLayout({
           poppins.className
         } antialiased flex flex-col min-h-svh text-sm md:text-[1rem] bg-(--bg) text-(--text) duration-200 ${
           theme.toString() === "dark" ? "dark" : ""
-        }`}
+        } overflow-x-hidden`}
       >
         <UserSetter userInfo={userInfo} />
         <Toaster />
