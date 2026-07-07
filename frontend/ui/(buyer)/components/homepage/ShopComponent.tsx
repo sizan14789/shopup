@@ -6,7 +6,7 @@ const getProducts = async () => {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/api/products?limit=5`, {
       next: {
-        revalidate: 3600 * 24,
+        revalidate: 3600,
       },
     });
     const data = await res.json();
