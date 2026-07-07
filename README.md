@@ -1,6 +1,8 @@
 # ShopUp 🚀
 
-**ShopUp** is a modern, full‑stack e‑commerce platform featuring a sleek storefront and a powerful admin dashboard for end‑to‑end product and order management. Built with cutting‑edge technologies and **raw SQL** for maximum control and performance.
+![ShopUp Home Page](./preview/home.png)
+
+**ShopUp** is a production-ready full-stack e-commerce platform built with **Next.js**, **Express.js**, **PostgreSQL**, and **TypeScript**. It features custom session-based authentication, raw SQL, responsive design, and an integrated seller dashboard for product management.
 
 ---
 
@@ -12,9 +14,19 @@
 
 ---
 
+## Highlights
+
+- 🔐 Custom session-based authentication with bcrypt and UUID sessions
+- ⚡ 40+ RESTful API endpoints
+- 🗄️ PostgreSQL with raw SQL (no ORM)
+- 📱 Fully responsive buyer and seller interfaces
+- ☁️ Product image storage using Supabase Storage
+
+---
+
 ## ✨ Features
 
-### 🛍️ Modern Storefront
+### 🛍️ Customer Storefront
 
 - Mobile‑first, fully responsive UI
 - Product catalog with ratings & pricing
@@ -28,12 +40,60 @@
 - Inventory tracking (upcoming)
 - Order management (upcoming)
 
-### ⚡ Performance‑Focused
+### ⚡ Technical Highlights
 
 - Next.js App Router & Server Components
 - Tailwind CSS for fast, scalable styling
 - Zustand for lightweight state management
-- **Raw SQL** queries (no ORM) for optimal DB performance
+- **Raw SQL** for full control over database schema design and query execution.
+
+---
+
+## 📸 Preview
+
+#### Shop
+
+![shop of ShopUp](./preview/shop.png)
+
+#### Product Details
+
+![product of ShopUp](./preview/product.png)
+
+#### Cart
+
+![cart page of ShopUp](./preview/cart.png)
+
+#### Checkout
+
+![Checkout page of ShopUp](./preview/checkout.png)
+
+#### User
+
+![User of ShopUp](./preview/user.png)
+
+---
+
+## 🏗 Architecture
+
+```text
+                    Browser
+                       │
+                       ▼
+      Next.js + React + TypeScript
+      Tailwind CSS • Zustand
+                       │
+                 REST API (HTTP)
+                       │
+                       ▼
+        Express.js • Zod • bcrypt
+                       │
+          UUID Session Authentication
+                       │
+        ┌──────────────┴──────────────┐
+        ▼                             ▼
+ PostgreSQL (Supabase)        Supabase Storage
+   Raw SQL (No ORM)            Product Images
+```
 
 ---
 
@@ -41,26 +101,29 @@
 
 **Frontend**
 
-- Next.js 15 (App Router)
-- React 19
+- Next.js
+- React
+- TypeScript
 - Tailwind CSS
 - Zustand
 
 **Backend**
 
-- Node.js
 - Express.js
-- Zod (validation)
+- REST API
+- Zod
+- bcrypt
 
-**Database**
+**Database & Storage**
 
-- Supabase (PostgreSQL)
-- Raw SQL (no ORM)
+- PostgreSQL (Supabase)
+- Supabase Storage
+- Raw SQL (No ORM)
 
 **Deployment**
 
 - Vercel (Next.js apps)
-- Backend deployable to Render
+- Backend deployed to Render
 
 ---
 
@@ -147,9 +210,30 @@ npm run frontend
 npm run backend
 ```
 
-## 🗄 Database Schema (Example)
+## 🗄 Database Schema
 
-Check frontend/types folder to understand schemas
+The application uses a relational PostgreSQL database designed with normalized tables.
+
+```text
+Users
+├── Sessions
+├── Cart
+├── Wishlist
+└── Orders
+      │
+      └──────────────┐
+                     │
+Products ────────────┘
+```
+
+**Core Tables**
+
+- Users
+- Sessions
+- Products
+- Cart
+- Wishlist
+- Orders
 
 ---
 
@@ -167,25 +251,5 @@ Check frontend/types folder to understand schemas
 - Tailwind responsive utilities
 - Hamburger navigation & mobile menu
 - Touch‑friendly interactions
-
----
-
-## 🌟 Key Architectural Decisions
-
-- **No ORM:** Full control and maximum performance with raw SQL
-- **Zustand:** Simple, fast state management
-- **Next.js App Router:** Modern routing and layouts
-- **Server Components:** Optimized rendering strategy
-- **Monorepo:** Shared UI, types, and DB logic across apps
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/product-filter`)
-3. Commit your changes (`git commit -m "Add product filtering"`)
-4. Push to the branch (`git push origin feature/product-filter`)
-5. Open a Pull Request
 
 ---
