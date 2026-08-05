@@ -15,7 +15,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: {
     template: " %s | ShopUp ",
-    default: 'ShopUp',
+    default: "ShopUp",
   },
   description: "An E-commerce app",
 };
