@@ -65,9 +65,28 @@ export default function OrdersItemCard({
     }
   };
 
-  const handlePayment = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handlePayment = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
+
+    const paymentUrl = await fetch(`/api/orders/payment-checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id: product_id,
+        quantity: quantity,
+      }),
+    });
+
+    if (paymentUrl.status !== 200) {
+      toast.error("Error at server");
+      return;
+    }
+
+    const res = await paymentUrl.json();
+    window.location.href = res.url;
   };
 
   return (

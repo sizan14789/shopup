@@ -18,8 +18,8 @@ export const signup = async (req, res, next) => {
       new ApiError(
         "User exists at given username or email",
         409,
-        "at /api/auth/signup"
-      )
+        "at /api/auth/signup",
+      ),
     );
 
   const hashedPass = await bcrypt.hash(password, 12);
@@ -27,7 +27,7 @@ export const signup = async (req, res, next) => {
   const createdUser = (
     await pool.query(
       'insert into "user" (username, email, password) values ($1, $2, $3) returning id, username, email, role',
-      [username, email, hashedPass]
+      [username, email, hashedPass],
     )
   ).rows[0];
 
@@ -35,7 +35,7 @@ export const signup = async (req, res, next) => {
 
   await pool.query(
     'insert into "session" (sessionid, userid) values ($1, $2) ',
-    [sessionid, createdUser?.id]
+    [sessionid, createdUser?.id],
   );
 
   // cookie
@@ -63,7 +63,7 @@ export const login = async (req, res, next) => {
   const userExists = (
     await pool.query(
       'select id, username, password, email, role from "user" where username=$1 or email=$1',
-      [username]
+      [username],
     )
   ).rows;
 
@@ -80,7 +80,7 @@ export const login = async (req, res, next) => {
 
   await pool.query(
     'insert into "session" (sessionid, userid) values ($1, $2) ',
-    [sessionid, userExists[0]?.id]
+    [sessionid, userExists[0]?.id],
   );
 
   // cookie
@@ -110,16 +110,39 @@ export const session = async (req, res, next) => {
   if (!sessionid) return next(new ApiError("No session", 404));
 
   const sessionUserFetched = await pool.query(
-    `select username, email, image, role from session as s join "user" as u on s.userid=u.id where sessionid=$1 and s.created_at > now() - interval '7 day'`,
-    [sessionid]
+    `select id, username, email, image, role from session as s join "user" as u on s.userid=u.id where sessionid=$1 and s.created_at > now() - interval '7 day'`,
+    [sessionid],
   );
 
   if (sessionUserFetched.rows.length === 0)
     return next(new ApiError("Unauthorized", 401));
 
   const user = sessionUserFetched.rows[0];
+  req.user = user;
 
   return res.status(200).json(user);
+};
+
+// verify session
+export const verifySession = async (req, res, next) => {
+  const sessionid = req.cookies?.sessionid;
+  if (typeof sessionid !== "string")
+    return next(new ApiError("Invalid session", 400));
+
+  if (!sessionid) return next(new ApiError("No session", 404));
+
+  const sessionUserFetched = await pool.query(
+    `select id as user_id from session as s join "user" as u on s.userid=u.id where sessionid=$1 and s.created_at > now() - interval '7 day'`,
+    [sessionid],
+  );
+
+  if (sessionUserFetched.rows.length === 0)
+    return next(new ApiError("Unauthorized", 401));
+
+  const user = sessionUserFetched.rows[0];
+  req.user = user;
+
+  next();
 };
 
 // logout
@@ -133,7 +156,7 @@ export const logout = async (req, res, next) => {
 
   const sessionUserFetched = await pool.query(
     `delete from session where sessionid=$1 returning *`,
-    [sessionid]
+    [sessionid],
   );
 
   if (sessionUserFetched.rows.length === 0)
