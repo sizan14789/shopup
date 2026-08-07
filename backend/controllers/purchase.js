@@ -87,15 +87,15 @@ export const confirmOrder = async (req, res, next) => {
       new ApiError("Unauthorized", 401, "Order is not pending anymore"),
     );
 
-  // const response = await pool.query(
-  //   `UPDATE "order" SET order_status='Payed' WHERE buyer_id=$1 AND id=$2`,
-  //   [user_id, order_id],
-  // );
+  const response = await pool.query(
+    `UPDATE "order" SET order_status='Payed' WHERE buyer_id=$1 AND id=$2 returning *`,
+    [user_id, order_id],
+  );
 
-  // if (!response.rows.length)
-  //   return next(
-  //     new ApiError("Failed to save orders in database", 500, "at /webhook"),
-  //   );
+  if (!response.rows.length)
+    return next(
+      new ApiError("Failed to save orders in database", 500, "at /webhook"),
+    );
 
   return res.status(201).json({ success: true, message: "Payment Completed" });
 };
