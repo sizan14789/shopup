@@ -65,7 +65,7 @@ export default function OrdersItemCard({
     }
   };
 
-  const handlePayment = (e: Event) => {
+  const handlePayment = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
   };
@@ -97,7 +97,7 @@ export default function OrdersItemCard({
         <p className="text-xs mb-2 flex gap-2 items-center">{order_status}</p>
         <div className="flex gap-2 md:gap-4 flex-col md:flex-row">
           <button
-            onClick={handlePayment}
+            onClick={(e) => handlePayment(e)}
             className="button-primary h-10 w-24 flex justify-center items-center text-xs!"
           >
             Pay Now
