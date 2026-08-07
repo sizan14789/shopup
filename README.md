@@ -2,7 +2,7 @@
 
 ![ShopUp Home Page](./preview/home.png)
 
-**ShopUp** is a production-ready full-stack e-commerce platform built with **Next.js**, **Express.js**, **PostgreSQL**, and **TypeScript**. It features custom session-based authentication, raw SQL, responsive design, and an integrated seller dashboard for product management.
+**ShopUp** is a full-stack e-commerce platform built with **Next.js**, **Express.js**, **PostgreSQL**, and **TypeScript**. It features custom session-based authentication, Stripe Checkout integration, raw SQL, responsive design, and a seller dashboard for product management.
 
 ---
 
@@ -17,6 +17,7 @@
 ## Highlights
 
 - 🔐 Custom session-based authentication with bcrypt and UUID sessions
+- 💳 Stripe Checkout integration with secure payment flow
 - ⚡ 40+ RESTful API endpoints
 - 🗄️ PostgreSQL with raw SQL (no ORM)
 - 📱 Fully responsive buyer and seller interfaces
@@ -28,11 +29,13 @@
 
 ### 🛍️ Customer Storefront
 
-- Mobile‑first, fully responsive UI
+- Mobile-first, fully responsive UI
 - Product catalog with ratings & pricing
 - Shopping cart & wishlist
-- Search and filtering
+- Product search and filtering
 - Secure user authentication (Login / Signup)
+- Secure checkout powered by Stripe Checkout
+- Order history
 
 ### 🧑‍💼 Admin Dashboard
 
@@ -43,9 +46,11 @@
 ### ⚡ Technical Highlights
 
 - Next.js App Router & Server Components
-- Tailwind CSS for fast, scalable styling
-- Zustand for lightweight state management
-- **Raw SQL** for full control over database schema design and query execution.
+- Tailwind CSS
+- Zustand state management
+- Stripe Checkout integration
+- Webhook-based payment confirmation
+- Raw SQL (No ORM)
 
 ---
 
@@ -73,9 +78,8 @@
 
 ---
 
-## 🏗 Architecture
+# Architecture
 
-```text
                     Browser
                        │
                        ▼
@@ -87,13 +91,14 @@
                        ▼
         Express.js • Zod • bcrypt
                        │
-          UUID Session Authentication
+        Stripe Checkout & Webhooks
                        │
-        ┌──────────────┴──────────────┐
-        ▼                             ▼
- PostgreSQL (Supabase)        Supabase Storage
-   Raw SQL (No ORM)            Product Images
-```
+        ┌──────────────┼───────────────────┐
+        ▼              ▼                   ▼
+
+      PostgreSQL    Supabase Storage     Stripe
+
+      Raw SQL       Product Images       Payments
 
 ---
 
@@ -111,6 +116,7 @@
 
 - Express.js
 - REST API
+- Stripe
 - Zod
 - bcrypt
 
@@ -160,6 +166,19 @@ shopup/
 
 ---
 
+## 💳 Payments
+
+Stripe Checkout is integrated for secure payment processing.
+
+For local development:
+
+- Use Stripe test mode.
+- Configure `STRIPE_SECRET_KEY`.
+- Configure `STRIPE_WEBHOOK_SECRET`.
+- Use Stripe test cards (e.g. `4242 4242 4242 4242`).
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -198,6 +217,10 @@ SUPABASE_KEY=<service key>         #Don't use anon key
 # PG_PORT=<database PORT>          #5432 usually
 # PG_USER=<username>               #'postgres' usually
 # PG_PASSWORD=<postgres password>
+
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
 ```
 
 ### 3️⃣ Development (Run from shopup folder)
@@ -242,14 +265,5 @@ Products ────────────┘
 - **Typography:** Poppins (Google Fonts)
 - **Colors:** CSS custom properties (`--bg`, `--text`, `--primary`)
 - **Components:** Fully reusable Tailwind components in `frontend/ui/`
-
----
-
-## 📱 Responsive Design
-
-- Mobile‑first layout
-- Tailwind responsive utilities
-- Hamburger navigation & mobile menu
-- Touch‑friendly interactions
 
 ---
