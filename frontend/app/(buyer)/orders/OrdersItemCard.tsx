@@ -65,12 +65,17 @@ export default function OrdersItemCard({
     }
   };
 
+  const handlePayment = (e: Event) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
-    <div className="grid grid-cols-3 py-4 border-b-(--border) border-b bg-(--bg) hover:brightness-95 duration-200 ">
-      <Link
-        href={"/shop/" + product_id}
-        className=" flex items-center gap-4 flex-col lg:flex-row px-2 cursor-pointer"
-      >
+    <Link
+      href={"/orders/" + id}
+      className="grid grid-cols-3 py-4 border-b-(--border) border-b bg-(--bg) hover:brightness-95 duration-200 "
+    >
+      <div className=" flex items-center gap-4 flex-col lg:flex-row px-2 cursor-pointer">
         <Image
           height={100}
           width={100}
@@ -81,7 +86,7 @@ export default function OrdersItemCard({
         <div className="flex gap-1 md:gap-2 flex-col  w-full">
           <h2 className=" text-center lg:text-start">{product_name}</h2>
         </div>
-      </Link>
+      </div>
 
       <p className="flex justify-center text-sm items-center">
         ${offer_price}x{quantity}=
@@ -89,14 +94,14 @@ export default function OrdersItemCard({
       </p>
 
       <div className="flex justify-center flex-col items-center gap-2">
-        <p className="text-xs mb-2">{order_status}</p>
+        <p className="text-xs mb-2 flex gap-2 items-center">{order_status}</p>
         <div className="flex gap-2 md:gap-4 flex-col md:flex-row">
-          <Link
-            href={"/orders/" + id}
+          <button
+            onClick={handlePayment}
             className="button-primary h-10 w-24 flex justify-center items-center text-xs!"
           >
-            See Details
-          </Link>
+            Pay Now
+          </button>
           {order_status === "Pending" ? (
             <button
               className="button-secondary h-10 w-24 flex justify-center items-center text-xs! "
@@ -120,6 +125,6 @@ export default function OrdersItemCard({
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
