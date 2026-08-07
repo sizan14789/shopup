@@ -24,7 +24,11 @@ app.use(
 );
 
 // webhook stripe
-app.get("/api/webhook", confirmOrder);
+app.post(
+  "/api/orders/webhook",
+  express.raw({ type: "application/json" }),
+  confirmOrder,
+);
 
 app.use(express.json());
 app.use(cookieParser());

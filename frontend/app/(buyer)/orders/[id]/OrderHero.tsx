@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { format, formatDistance } from 'date-fns'
+import { format, formatDistance } from "date-fns";
 
 export default function OrderHero({ data }: { data: SingleOrderType }) {
   const [order, setOrder] = useState<SingleOrderType>(data);
@@ -28,32 +28,35 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
   } = order;
   const router = useRouter();
 
-  const formattedDate = format(new Date(created_at), "dd-MM-yyyy")
-  const formattedDistance = formatDistance(new Date(created_at), new Date(), { addSuffix: true })
+  const formattedDate = format(new Date(created_at), "dd-MM-yyyy");
+  const formattedDistance = formatDistance(new Date(created_at), new Date(), {
+    addSuffix: true,
+  });
 
   // cancel order
-  const handleCancel = async () => {
-    const toastid = toast.loading("Cancelling");
-    try {
-      const res = await fetch(
-        `/api/orders/cancel/${id}`,
-        {
-          method: "post",
-          credentials: "include",
-        }
-      );
+  const handlePayment = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-      if (res.status === 201) {
-        setOrder((prev) => ({ ...prev, order_status: "Cancelled" }));
-        toast.success("Order Cancelled", { id: toastid });
-      } else {
-        const data = await res.json();
-        toast.error(data.message, { id: toastid });
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Cancel Failed", { id: toastid });
+    const paymentUrl = await fetch(`/api/orders/payment-checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order_id: id,
+        product_id: product_id,
+        quantity: quantity,
+      }),
+    });
+
+    if (paymentUrl.status !== 200) {
+      toast.error("Error at server");
+      return;
     }
+
+    const res = await paymentUrl.json();
+    window.location.href = res.url;
   };
 
   // archive Order
@@ -61,13 +64,10 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
     const toastid = toast.loading("Archiving");
 
     try {
-      const res = await fetch(
-        `/api/orders/archive/${id}`,
-        {
-          method: "post",
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`/api/orders/archive/${id}`, {
+        method: "post",
+        credentials: "include",
+      });
 
       if (res.status === 201) {
         setOrder((prev) => ({ ...prev, order_status: "Archived" }));
@@ -109,8 +109,7 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
         <p className="dimmed-text ">Order Status: {order_status}</p>
 
         <div className="flex max-w-40 justify-between border-b border-(--border-button) ">
-          <div className="flex items-end">
-          </div>
+          <div className="flex items-end"></div>
           <div>
             <p className="dimmed-text ">${offer_price}</p>
             <p className="dimmed-text text-end">x{quantity}</p>
@@ -125,8 +124,9 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
             <p className="dimmed-text font-bold ">${subtotal}</p>
           </div>
         </div>
-        <p className="dimmed-text mb-8 ">Order Time: {formattedDistance} ({formattedDate})</p>
-
+        <p className="dimmed-text mb-8 ">
+          Order Time: {formattedDistance} ({formattedDate})
+        </p>
 
         <h2 className="text-xl">Recipient Info:</h2>
         <div className="flex flex-col gap-1 mb-6">
@@ -137,25 +137,25 @@ export default function OrderHero({ data }: { data: SingleOrderType }) {
         </div>
 
         <div className="flex gap-4 ">
-          <Link
-            href={"/shop/" + product_id}
-            className="button-primary h-12 w-36 flex justify-center items-center"
-          >
-            View In Shop
-          </Link>
           {order_status === "Pending" ? (
             <button
-              className="button-secondary h-12 w-36 flex justify-center items-center"
-              onClick={handleCancel}
+              className="button-primary h-12 w-36 flex justify-center items-center"
+              onClick={handlePayment}
             >
-              Cancel Order
+              Pay Now
             </button>
           ) : (
             <></>
           )}
+          <Link
+            href={"/shop/" + product_id}
+            className="button-secondary h-12 w-36 flex justify-center items-center"
+          >
+            View In Shop
+          </Link>
           {order_status === "Cancelled" || order_status === "Completed" ? (
             <button
-              className="button-secondary h-12 w-36 flex justify-center items-center text-xs! gap-1"
+              className="button-primary h-12 w-36 flex justify-center items-center text-xs! gap-1"
               onClick={handleArchive}
             >
               <ArchiveIcon size={20} weight="light" />
