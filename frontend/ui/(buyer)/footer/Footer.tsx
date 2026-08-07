@@ -13,14 +13,13 @@ export default function Footer() {
             >
               ShopUp
             </Link>
-            <p className="dimmed-text text-xs! mb-3">
+            <p className="dimmed-text text-xs!">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
               cumque porro voluptates similique, perferendis iste tempora est
               architecto ut excepturi sed enim, minima dolorum impedit rem
               repellendus explicabo id neque.
             </p>
 
-            <h2 className="font-semibold text-(--subtext)">Socials</h2>
             <div className="flex">
               <Link
                 href="https://github.com/sizan14789"

@@ -11,6 +11,7 @@ import ordersRouter from "./routes/orders.js";
 import wishlistRouter from "./routes/wishlist.js";
 import userRouter from "./routes/user.js";
 import { health, supabase } from "./utils/pings.js";
+import { confirmOrder } from "./controllers/purchase.js";
 
 const app = express();
 
@@ -20,6 +21,13 @@ app.use(
     origin: process.env.FRONTEND_URL,
     credentials: true,
   }),
+);
+
+// webhook stripe
+app.post(
+  "/api/orders/webhook",
+  express.raw({ type: "application/json" }),
+  confirmOrder,
 );
 
 app.use(express.json());

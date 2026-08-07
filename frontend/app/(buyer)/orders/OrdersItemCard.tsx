@@ -39,7 +39,6 @@ export default function OrdersItemCard({
         toast.error(data.message);
       }
     } catch (error) {
-      console.error(error);
       toast.error("Cancel Failed");
     }
   };
@@ -65,12 +64,37 @@ export default function OrdersItemCard({
     }
   };
 
+  const handlePayment = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const paymentUrl = await fetch(`/api/orders/payment-checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order_id: id,
+        product_id: product_id,
+        quantity: quantity,
+      }),
+    });
+
+    if (paymentUrl.status !== 200) {
+      toast.error("Error at server");
+      return;
+    }
+
+    const res = await paymentUrl.json();
+    window.location.href = res.url;
+  };
+
   return (
-    <div className="grid grid-cols-3 py-4 border-b-(--border) border-b bg-(--bg) hover:brightness-95 duration-200 ">
-      <Link
-        href={"/shop/" + product_id}
-        className=" flex items-center gap-4 flex-col lg:flex-row px-2 cursor-pointer"
-      >
+    <Link
+      href={"/orders/" + id}
+      className="grid grid-cols-3 py-4 border-b-(--border) border-b bg-(--bg) hover:brightness-95 duration-200 "
+    >
+      <div className=" flex items-center gap-4 flex-col lg:flex-row px-2 cursor-pointer">
         <Image
           height={100}
           width={100}
@@ -81,7 +105,7 @@ export default function OrdersItemCard({
         <div className="flex gap-1 md:gap-2 flex-col  w-full">
           <h2 className=" text-center lg:text-start">{product_name}</h2>
         </div>
-      </Link>
+      </div>
 
       <p className="flex justify-center text-sm items-center">
         ${offer_price}x{quantity}=
@@ -89,21 +113,23 @@ export default function OrdersItemCard({
       </p>
 
       <div className="flex justify-center flex-col items-center gap-2">
-        <p className="text-xs mb-2">{order_status}</p>
+        <p className="text-xs mb-2 flex gap-2 items-center">{order_status}</p>
         <div className="flex gap-2 md:gap-4 flex-col md:flex-row">
-          <Link
-            href={"/orders/" + id}
-            className="button-primary h-10 w-24 flex justify-center items-center text-xs!"
-          >
-            See Details
-          </Link>
           {order_status === "Pending" ? (
-            <button
-              className="button-secondary h-10 w-24 flex justify-center items-center text-xs! "
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
+            <>
+              <button
+                onClick={(e) => handlePayment(e)}
+                className="button-primary h-10 w-24 flex justify-center items-center text-xs!"
+              >
+                Pay Now
+              </button>
+              <button
+                className="button-secondary h-10 w-24 flex justify-center items-center text-xs! "
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </>
           ) : (
             <></>
           )}
@@ -120,6 +146,6 @@ export default function OrdersItemCard({
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

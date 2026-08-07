@@ -8,6 +8,8 @@ import {
   getOrderById,
   getOrders,
 } from "../controllers/orders.js";
+import { session, verifySession } from "../controllers/auth.js";
+import { payment } from "../controllers/purchase.js";
 
 const router = Router();
 
@@ -28,5 +30,8 @@ router.post("/orders/archive/:id", validateBuyer, archiveOrder);
 
 // get archived
 router.get("/archived", validateBuyer, getArchived);
+
+// Payment
+router.post("/orders/payment-checkout", verifySession, payment);
 
 export default router;
